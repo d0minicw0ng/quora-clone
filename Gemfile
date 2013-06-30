@@ -41,3 +41,8 @@ gem 'backbone-on-rails'
 gem 'ejs'
 
 gem 'better_errors'
+
+gem 'devise'
+gem 'letter_opener', :group => :development
+gem 'paperclip'
+gem 'aws-sdk'

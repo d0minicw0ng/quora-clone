@@ -15,6 +15,8 @@ Quora::Application.configure do
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+	config.action_mailer.delivery_method = :letter_opener
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -34,4 +36,13 @@ Quora::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+	
+	config.paperclip_defaults = {
+		:storage => :s3,
+		:s3_credentials => {
+			:bucket => "quora-clone-development",
+			:access_key_id => "AKIAJO3RZI7T2Q5ULJNA",
+			:secret_access_key => "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"
+		}
+	}
 end
