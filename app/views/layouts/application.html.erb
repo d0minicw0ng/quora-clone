@@ -8,10 +8,38 @@
 </head>
 <body>
 <% if user_signed_in? %>
-<%= link_to "Logout", destroy_user_session_path, :method => :delete %>
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="#">
+    	<%= image_tag('/assets/quora.png') %>
+    </a>
+    <ul class="nav">
+			<li>
+				<form class="navbar-search pull-left" 
+					style="padding:0 100px">
+				  <input type="text" 
+						class="search-query" 
+						placeholder="Search">
+					<button type="submit" 
+						class="btn">
+						Search
+					</button>
+				</form>
+			</li>
+      <li><a href="#">Link</a></li>
+      <li>
+				<%= link_to "Logout", 
+					destroy_user_session_path, 
+					:method => :delete %>
+			</li>
+    </ul>
+  </div>
+</div>	
 <% end %>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+	
+
+<!-- <p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p> -->
 
 <%= yield %>
 

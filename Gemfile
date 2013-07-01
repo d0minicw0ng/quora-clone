@@ -42,7 +42,13 @@ gem 'ejs'
 
 gem 'better_errors'
 
+# Used for authentication and upload photos
 gem 'devise'
 gem 'letter_opener', :group => :development
 gem 'paperclip'
 gem 'aws-sdk'
+
+# Bootstrap
+gem 'therubyracer'
+gem 'less-rails'
+gem 'twitter-bootstrap-rails'

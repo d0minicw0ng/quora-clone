@@ -11,7 +11,51 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130630234848) do
+ActiveRecord::Schema.define(:version => 20130701042031) do
+
+  create_table "comments", :force => true do |t|
+    t.text     "body",              :null => false
+    t.integer  "question_id",       :null => false
+    t.integer  "parent_comment_id"
+    t.integer  "answerer_id",       :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  create_table "follow_question_relationships", :force => true do |t|
+    t.integer  "follower_id", :null => false
+    t.integer  "question_id", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "follow_topic_relationships", :force => true do |t|
+    t.integer  "follower_id", :null => false
+    t.integer  "topic_id",    :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "follow_user_relationships", :force => true do |t|
+    t.integer  "followed_user_id", :null => false
+    t.integer  "follower_id",      :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "questions", :force => true do |t|
+    t.string   "title",      :null => false
+    t.text     "body",       :null => false
+    t.integer  "asker_id",   :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "topics", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                        :default => "", :null => false
@@ -39,5 +83,12 @@ ActiveRecord::Schema.define(:version => 20130630234848) do
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "votes", :force => true do |t|
+    t.integer  "voter_id",   :null => false
+    t.integer  "answer_id",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end
