@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130701042031) do
+ActiveRecord::Schema.define(:version => 20130702001823) do
 
   create_table "comments", :force => true do |t|
     t.text     "body",              :null => false
@@ -41,6 +41,13 @@ ActiveRecord::Schema.define(:version => 20130701042031) do
     t.integer  "follower_id",      :null => false
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+  end
+
+  create_table "question_topic_relationships", :force => true do |t|
+    t.integer  "question_id", :null => false
+    t.integer  "topic_id",    :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "questions", :force => true do |t|
@@ -78,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20130701042031) do
     t.string   "profile_picture_content_type"
     t.integer  "profile_picture_file_size"
     t.datetime "profile_picture_updated_at"
+    t.string   "username"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

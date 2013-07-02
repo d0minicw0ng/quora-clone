@@ -1,6 +1,6 @@
 class Question < ActiveRecord::Base
   attr_accessible :title, :body, :asker_id
-	validates_presence_of :title, :body, :asker_id
+	validates_presence_of :title, :body
 	
 	belongs_to :asker,
 						 :class_name => "User",
@@ -8,7 +8,7 @@ class Question < ActiveRecord::Base
 						 
   has_many :answers,
   				 :class_name => "Comment",
-					 :foreign_key =? :question_id
+					 :foreign_key => :question_id
 					 
 	has_many :follow_question_relationships
 	

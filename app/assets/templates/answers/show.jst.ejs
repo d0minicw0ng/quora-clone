@@ -1,0 +1,9 @@
+<li data-id="<%= answer.id %>">
+	<%= answer.escape("answerer").escape("username") %>
+	<br />
+	<%= answer.escape("votes").count %> votes<br />
+	<%= answer.body %>
+</li>
+
+
+

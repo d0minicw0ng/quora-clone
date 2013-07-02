@@ -10,9 +10,11 @@
 <% if user_signed_in? %>
 <div class="navbar">
   <div class="navbar-inner">
-    <a class="brand" href="#">
-    	<%= image_tag('/assets/quora.png') %>
-    </a>
+    <!-- <a class="brand" href=""> -->
+    	<span style="float:left">
+				<%= link_to image_tag('/assets/quora.png'), root_url %>
+			</span>
+    <!-- </a> -->
     <ul class="nav">
 			<li>
 				<form class="navbar-search pull-left" 
@@ -26,7 +28,11 @@
 					</button>
 				</form>
 			</li>
-      <li><a href="#">Link</a></li>
+			
+      <li>
+				<%= link_to current_user.username, user_url(current_user) %>
+			</li>
+			
       <li>
 				<%= link_to "Logout", 
 					destroy_user_session_path, 
@@ -37,9 +43,12 @@
 </div>	
 <% end %>
 	
-
-<!-- <p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p> -->
+<% if notice %>
+	<p class="notice"><%= notice %></p>
+<% end %>
+<% if alert %>
+	<p class="alert"><%= alert %></p>
+<% end %>
 
 <%= yield %>
 

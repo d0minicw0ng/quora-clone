@@ -1,0 +1,47 @@
+<h3><%= @question.title %></h3>
+
+<p><%= @question.body %></p>
+
+<span>Comment</span>
+<hr>
+<p><%= @question.answers.count %> Answers</p>
+<hr>
+
+<%= link_to current_user.username, user_url(current_user) %><br />
+
+<%= form_for @comment, html: { class: "new_comment" } do |f| %>
+	<%= f.text_area(:body, rows: 3) %><br />
+	<%= f.hidden_field(:question_id, :value => @question.id) %>
+
+	<div id="leave_answer"><%= f.submit "Answer" %></div>
+<% end %>
+<hr>
+
+<ul id="answers_html">
+	<% @question.answers.each do |answer| %>
+		<li data-id="<%= answer.id %>">
+			<%= link_to answer.answerer.username, user_url(answer.answerer) %>
+			<br />
+			<%= answer.votes.count %> votes<br />
+			<%= answer.body %>
+		</li>
+		<div class="show_comment">Comment</div>
+			<%= form_for @comment, html: { class: "new_comment hidden" } do |f| %>
+			<%= f.text_field(:body) %>
+			<%= f.hidden_field(:question_id, :value => @question.id) %>
+			<%= f.hidden_field(:parent_comment_id, :value => answer.id) %>
+			
+			<div id="leave_answer"><%= f.submit "Comment" %></div>
+		<% end %>
+		<hr>
+	<% end %>
+</ul>	
+ 
+<ul id="answers_backbone"></ul>
+
+<script>
+	$("div.show_comment").on("click", function(event){
+		event.preventDefault();
+		$(".new_comment").toggleClass("hidden");
+	})
+</script>
