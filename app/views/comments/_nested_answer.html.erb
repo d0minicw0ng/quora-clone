@@ -1,0 +1,29 @@
+<li data-id="<%= answer.id %>">
+	<%= link_to answer.answerer.username, user_url(answer.answerer) %><br />
+	<%= answer.votes.count %> votes<br />
+	<%= answer.body %><br /><br />
+	<ul class="child_comments">
+		<% if answer.child_comments %>
+			<% answer.child_comments.each do |comment| %>
+				<%= render :partial => "comments/nested_answer", 
+					:locals => { :answer => comment, :comment => @comment } %>
+			<% end %>
+		<% end %>
+	</ul>
+</li>
+
+<a class="show_comment">Comment</a>
+<%= form_for comment, 
+	html: { class: "new_comment hidden" } do |f| %>
+	<%= f.text_field(:body) %>
+	<%= f.hidden_field(:question_id, :value => @question.id) %>
+	<%= f.hidden_field(:parent_comment_id, :value => answer.id) %>
+
+	<div id="leave_reply"><%= f.submit "Comment" %></div>
+<% end %>
+
+<script>
+	$("$leave_reply").on("ajax:success", function(event, data){
+		$(".child_comments").append(data);
+	})
+</script>

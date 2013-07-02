@@ -12,8 +12,8 @@ window.Quora = {
 			questions: Quora.questions
 		});
 		
-		new Quora.Routers.Answers({
-			$rootEl: $("#comments_backbone")
+		new Quora.Routers.Comments({
+			$rootEl: $("#answers_backbone")
 		})
 		
 		Backbone.history.start();

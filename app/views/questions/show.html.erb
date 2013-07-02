@@ -2,46 +2,39 @@
 
 <p><%= @question.body %></p>
 
-<span>Comment</span>
+<a class="get_comment_area">Leave a Comment</a>
+
 <hr>
-<p><%= @question.answers.count %> Answers</p>
-<hr>
-
-<%= link_to current_user.username, user_url(current_user) %><br />
-
-<%= form_for @comment, html: { class: "new_comment" } do |f| %>
-	<%= f.text_area(:body, rows: 3) %><br />
-	<%= f.hidden_field(:question_id, :value => @question.id) %>
-
-	<div id="leave_answer"><%= f.submit "Answer" %></div>
-<% end %>
+<p><%= @answers.count %> Answers</p>
 <hr>
 
-<ul id="answers_html">
-	<% @question.answers.each do |answer| %>
-		<li data-id="<%= answer.id %>">
-			<%= link_to answer.answerer.username, user_url(answer.answerer) %>
-			<br />
-			<%= answer.votes.count %> votes<br />
-			<%= answer.body %>
-		</li>
-		<div class="show_comment">Comment</div>
-			<%= form_for @comment, html: { class: "new_comment hidden" } do |f| %>
-			<%= f.text_field(:body) %>
-			<%= f.hidden_field(:question_id, :value => @question.id) %>
-			<%= f.hidden_field(:parent_comment_id, :value => answer.id) %>
-			
-			<div id="leave_answer"><%= f.submit "Comment" %></div>
-		<% end %>
-		<hr>
+<div class="comment_area hidden">
+	<%= link_to current_user.username, user_url(current_user) %><br />
+
+	<%= form_for @comment, html: { class: "new_comment" } do |f| %>
+		<%= f.text_area(:body, rows: 3) %><br />
+		<%= f.hidden_field(:question_id, :value => @question.id) %>
+
+		<div id="leave_answer"><%= f.submit "Answer" %></div>
 	<% end %>
-</ul>	
+	<hr>
+</div>
+
+	<ul id="answers_html">
+		<% @answers.each do |answer| %>
+			<%= render :partial => "comments/nested_answer", 
+				:locals => { :answer => answer, :comment => @comment }%>
+		<% end %>
+	</ul>	
  
-<ul id="answers_backbone"></ul>
+	<ul id="answers_backbone"></ul>
 
 <script>
-	$("div.show_comment").on("click", function(event){
-		event.preventDefault();
-		$(".new_comment").toggleClass("hidden");
+	$("a.show_comment").on("click", function(event){
+		$(this).next("form").toggleClass("hidden");
+	})
+	
+	$(".get_comment_area").on("click", function(event){
+		$(".comment_area").toggleClass("hidden");
 	})
 </script>
