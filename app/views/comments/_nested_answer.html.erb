@@ -1,15 +1,16 @@
 <li data-id="<%= answer.id %>">
-	<%= link_to answer.answerer.username, user_url(answer.answerer) %><br />
+	<%= link_to answer.answerer.username, user_url(answer.answerer) %>
+	<br />
 	<%= answer.votes.count %> votes<br />
 	<%= answer.body %>
 	<% if answer.answerer_id == current_user.id %>
-		<%= button_to "Delete Comment", 
+		<%= link_to "Delete Comment", 
 			comment_url(answer), 
 			:method => :delete,
 			:remote => true,
 			:html => { :class => "delete_comment"} %>
 	<% end %>
-	<br /><br />
+	<br />
 	<ul class="child_comments">
 		<% if answer.child_comments %>
 			<% answer.child_comments.each do |comment| %>
@@ -39,6 +40,6 @@
 	})
 	
 	$(".delete_comment").on("ajax:success", function(event){
-		$(this).closest("li").empty();
+		$(this).closest("li").remove();
 	})
 </script>

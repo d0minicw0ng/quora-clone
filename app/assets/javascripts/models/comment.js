@@ -1,3 +1,3 @@
-Quora.Models.Comment = Backbone.Model.extend({
-	
-})
+// Quora.Models.Comment = Backbone.Model.extend({
+// 	
+// })

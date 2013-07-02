@@ -1,8 +1,24 @@
 <li data-id="<%= comment.id %>">
-	<%= comment.get("answerer").get("username") %>
+	<a href="users/<%= comment.answerer.id %>"><%= comment.answerer.username %></a>
 	<br />
-	<%= comment.get("votes").count %> votes<br />
+	<%= comment.votes.count %> votes<br />
 	<%= comment.body %>
+	<a href="/comments/<%= comment.id %>" class="delete_comment" data-remote="true" data-method="delete">
+		Delete Comment
+	</a>
+	<br />
+	<ul class="child_comments"></ul>
 </li>
 
+<form action="/comments" method="POST" class="new_comment" data-remote="true">
 
+	<label for="comment_body">Body</label>
+	<input type="text" name=comment[body]>
+	
+	<input type="hidden" value=<%= comment.question_id %> name="comment[question_id]">
+	<input type="hidden" value=<%= comment.id %> name="comment[parent_comment_id]">
+	
+	<div id="leave_reply"><input type="submit" value="Comment"></div>
+</form>
+	
+	
