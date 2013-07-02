@@ -1,7 +1,25 @@
 <li data-id="<%= answer.id %>">
 	<%= link_to answer.answerer.username, user_url(answer.answerer) %>
 	<br />
-	<%= answer.votes.count %> votes<br />
+	<div>
+		<span>
+			<span id='votes_count_"<%= answer.id %>"'><%= pluralize(answer.votes.count, "vote") %></span>
+			<% if answer.votes.count > 0 %> 
+				by <% answer.votes[0..2].each do |vote| %>
+					   <%= vote.voter.username %>
+					 <% end %>
+			  <% if answer.votes.count > 3 %>
+				  , and <%= answer.votes.count - 3 %> others
+			  <% end %>
+			<% end %>
+		</span>
+		
+		<%= form_for vote, :remote => true, :html => { :class => "upvote" } do |f| %>
+			<%= f.hidden_field :answer_id, :value => answer.id %>
+			<%= f.submit "Upvote" %>
+		<% end %>
+	</div> 
+	<br />
 	<%= answer.body %>
 	<% if answer.answerer_id == current_user.id %>
 		<%= link_to "Delete Comment", 
@@ -10,20 +28,21 @@
 			:remote => true,
 			:html => { :class => "delete_comment"} %>
 	<% end %>
-	<br />
+	<br /><br />
 	<ul class="child_comments">
 		<% if answer.child_comments %>
-			<% answer.child_comments.each do |comment| %>
+			<% answer.child_comments.each do |child_comment| %>
 				<%= render :partial => "comments/nested_answer", 
-					:locals => { :answer => comment, :comment => @comment } %>
+					:locals => { :answer => child_comment, :comment => comment, :vote => vote } %>
 			<% end %>
 		<% end %>
 	</ul>
 </li>
 
-<a class="show_comment">Comment</a>
+<a class="new_comment">Comment</a>
+
 <%= form_for comment, 
-	html: { class: "new_comment hidden" },
+	html: { class: "child_comment_area hidden" },
 	:remote => true do |f| %>
 		
 	<%= f.text_field(:body) %>
@@ -34,8 +53,22 @@
 <% end %>
 
 <script>
+	$('.upvote').on("ajax:success", function(event){
+		var newVoteCount = parseInt($(event.currentTarget).parent().find("#votes_count_<%= %>").html()[0]) + 1;
+		console.log($(event.currentTarget).parent());
+		console.log(newVoteCount)
+		if (newVoteCount == 1){
+			$(event.currentTarget).parent().find("span.votes_count").html('1 vote');				
+		} else {
+			$(event.currentTarget).parent().find("span.votes_count").html(newVoteCount + ' votes');	
+		};
+	});
+
+	$(".new_comment").on("click", function(){
+		$(this).next(".child_comment_area").toggleClass("hidden");
+	});	
+	
 	$("#leave_reply").on("ajax:success", function(event, data){
-		console.log(data)
 		$(".child_comments").append(data);
 	})
 	

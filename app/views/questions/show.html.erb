@@ -4,42 +4,36 @@
 
 <a class="get_comment_area">Leave a Comment</a>
 
-<hr>
-<p><%= @answers.count %> Answers</p>
-<hr>
+<hr width="80%">
+<p><span id="answers_count"><%= @answers.count %></span> Answers</p>
+<hr width="80%">
 
 <div class="comment_area hidden">
 	<%= link_to current_user.username, user_url(current_user) %><br />
 
-	<%= form_for @comment, html: { class: "new_comment" }, 
-		:remote => true do |f| %>
-			
+	<%= form_for @comment, html: { class: "new_comment" }, :remote => true do |f| %>
 		<%= f.text_area(:body, rows: 3) %><br />
 		<%= f.hidden_field(:question_id, :value => @question.id) %>
 
 		<div id="leave_answer"><%= f.submit "Answer" %></div>
 	<% end %>
-	<hr>
+	<hr width="80%">
 </div>
 
-	<ul id="answers_html">
-		<% @answers.each do |answer| %>
-			<%= render :partial => "comments/nested_answer", 
-				:locals => { :answer => answer, :comment => @comment }%>
-		<% end %>
-	</ul>	
+<ul id="answers_html">
+	<% @answers.each do |answer| %>
+		<%= render :partial => "comments/nested_answer", 
+			:locals => { :answer => answer, :comment => @comment, :vote => @vote }%>
+	<% end %>
+</ul>	
  
-	<ul id="answers_backbone"></ul>
-
 <script>
-	$("a.show_comment").on("click", function(event){
-		$(this).next("form").toggleClass("hidden");
-	})
-	
+	// Show comment box script
 	$(".get_comment_area").on("click", function(event){
 		$(".comment_area").toggleClass("hidden");
 	})
 	
+	// Leave comment script
 	$(".new_comment").on("ajax:success", function(event, data){
 		var template = JST["comments/show"]({
 			comment: data
@@ -47,5 +41,7 @@
 		
 		$("#answers_html").append(template)
 		$(".new_comment").find("textarea").val("");
+		var count = parseInt($("#answers_count").html());
+		$("#answers_count").html(count + 1);
 	})
 </script>

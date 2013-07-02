@@ -16,3 +16,8 @@
 	padding-top:50px;
 	padding-left:30px;
 }
+
+#sidebar {
+	float:right;
+	padding-right:30px;
+}

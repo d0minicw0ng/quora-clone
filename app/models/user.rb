@@ -68,5 +68,8 @@ class User < ActiveRecord::Base
  					 :source => :topic,
 					 :dependent => :destroy
 	
-	has_many :votes, :dependent => :destroy
+	has_many :votes, 
+					 :class_name => "Vote",
+					 :foreign_key => "voter_id", 
+					 :dependent => :destroy
 end

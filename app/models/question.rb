@@ -18,4 +18,8 @@ class Question < ActiveRecord::Base
 					 :through => :follow_question_relationships,
 					 :source => :follower
 
+	def self.recent_unanswered_questions
+		recent_questions = Question.where("created_at > ?", 2.weeks.ago)
+		recent_questions.select { |question| question.answers.empty? }
+	end
 end

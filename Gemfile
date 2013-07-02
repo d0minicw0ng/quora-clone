@@ -52,3 +52,6 @@ gem 'aws-sdk'
 gem 'therubyracer'
 gem 'less-rails'
 gem 'twitter-bootstrap-rails'
+
+# Postgres
+gem 'pg'

@@ -1,5 +1,5 @@
 <li data-id="<%= comment.id %>">
-	<a href="users/<%= comment.answerer.id %>"><%= comment.answerer.username %></a>
+	<a href="/users/<%= comment.answerer.id %>"><%= comment.answerer.username %></a>
 	<br />
 	<%= comment.votes.count %> votes<br />
 	<%= comment.body %>
@@ -10,9 +10,10 @@
 	<ul class="child_comments"></ul>
 </li>
 
-<form action="/comments" method="POST" class="new_comment" data-remote="true">
+<a class="new_comment">Comment</a>
 
-	<label for="comment_body">Body</label>
+<form action="/comments" method="POST" class="child_comment_area hidden" data-remote="true">
+
 	<input type="text" name=comment[body]>
 	
 	<input type="hidden" value=<%= comment.question_id %> name="comment[question_id]">

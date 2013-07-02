@@ -6,6 +6,7 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
 <% if user_signed_in? %>
 <div class="navbar navbar-fixed-top">
@@ -40,6 +41,11 @@
 			</li>
     </ul>
   </div>
+</div>
+
+<div id="sidebar">
+	<%= link_to "Ask A Question", new_question_url, :html => { :class => "ask_question" } %><br />
+	<%= link_to "Unanswered Questions", unanswered_questions_url, :html => { :class => "unanswered_questions" } %>
 </div>	
 <% end %>
 	
