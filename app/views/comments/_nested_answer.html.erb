@@ -1,7 +1,15 @@
 <li data-id="<%= answer.id %>">
 	<%= link_to answer.answerer.username, user_url(answer.answerer) %><br />
 	<%= answer.votes.count %> votes<br />
-	<%= answer.body %><br /><br />
+	<%= answer.body %>
+	<% if answer.answerer_id == current_user.id %>
+		<%= button_to "Delete Comment", 
+			comment_url(answer), 
+			:method => :delete,
+			:remote => true,
+			:html => { :class => "delete_comment"} %>
+	<% end %>
+	<br /><br />
 	<ul class="child_comments">
 		<% if answer.child_comments %>
 			<% answer.child_comments.each do |comment| %>
@@ -14,7 +22,9 @@
 
 <a class="show_comment">Comment</a>
 <%= form_for comment, 
-	html: { class: "new_comment hidden" } do |f| %>
+	html: { class: "new_comment hidden" },
+	:remote => true do |f| %>
+		
 	<%= f.text_field(:body) %>
 	<%= f.hidden_field(:question_id, :value => @question.id) %>
 	<%= f.hidden_field(:parent_comment_id, :value => answer.id) %>
@@ -23,7 +33,12 @@
 <% end %>
 
 <script>
-	$("$leave_reply").on("ajax:success", function(event, data){
+	$("#leave_reply").on("ajax:success", function(event, data){
+		console.log(data)
 		$(".child_comments").append(data);
+	})
+	
+	$(".delete_comment").on("ajax:success", function(event){
+		$(this).closest("li").empty();
 	})
 </script>

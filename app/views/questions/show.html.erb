@@ -11,7 +11,7 @@
 <div class="comment_area hidden">
 	<%= link_to current_user.username, user_url(current_user) %><br />
 
-	<%= form_for @comment, html: { class: "new_comment" } do |f| %>
+	<%= form_for @comment, html: { class: "new_comment" }, :remote => true do |f| %>
 		<%= f.text_area(:body, rows: 3) %><br />
 		<%= f.hidden_field(:question_id, :value => @question.id) %>
 
@@ -36,5 +36,15 @@
 	
 	$(".get_comment_area").on("click", function(event){
 		$(".comment_area").toggleClass("hidden");
+	})
+	
+	$(".new_comment").on("ajax:success", function(event, data){
+		console.log(data)
+		var template = JST["comments/show"]({
+			comment: data
+		})
+		
+		$("#answers_html").append(template)
+		$(".new_comment").find("input:text").val("");
 	})
 </script>

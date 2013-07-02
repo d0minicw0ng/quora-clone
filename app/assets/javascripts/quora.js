@@ -12,9 +12,9 @@ window.Quora = {
 			questions: Quora.questions
 		});
 		
-		new Quora.Routers.Comments({
-			$rootEl: $("#answers_backbone")
-		})
+		// new Quora.Routers.Comments({
+		// 	$rootEl: $("#answers_html")
+		// })
 		
 		Backbone.history.start();
   }

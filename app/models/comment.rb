@@ -4,7 +4,8 @@ class Comment < ActiveRecord::Base
 	
 	has_many :child_comments,
 					 :class_name => "Comment",
-					 :foreign_key => :parent_comment_id
+					 :foreign_key => :parent_comment_id,
+					 :dependent => :destroy
 					 
 	belongs_to :parent_comment,
  						 :class_name => "Comment",
@@ -18,7 +19,8 @@ class Comment < ActiveRecord::Base
 	
 	has_many :votes, 
 					 :class_name => "Vote",
-					 :foreign_key => :answer_id
+					 :foreign_key => :answer_id,
+					 :dependent => :destroy
 					 
 	def self.root_answers(comments)
 		comments.select { |comment| comment.parent_comment_id.nil? }

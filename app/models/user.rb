@@ -25,15 +25,18 @@ class User < ActiveRecord::Base
 										
 	has_many :questions, 
 			     :class_name => "Question",
-					 :foreign_key => :asker_id
+					 :foreign_key => :asker_id,
+					 :dependent => :destroy
 					 
   has_many :answers,
  					 :class_name => "Comment",
-					 :foreign_key => :answerer_id
+					 :foreign_key => :answerer_id,
+					 :dependent => :destroy
 					 
 	has_many :followed_relationships,
 	 				 :class_name => "FollowUserRelationship",
- 					 :foreign_key => :followed_user_id
+ 					 :foreign_key => :followed_user_id,
+					 :dependent => :destroy
 					 
  	has_many :following_relationships,
  	 				 :class_name => "FollowUserRelationship",
@@ -47,19 +50,23 @@ class User < ActiveRecord::Base
 					 :through => :following_relationships,
 					 :source => :followed_user
 					 
-	has_many :follow_question_relationships
+	has_many :follow_question_relationships, :dependent => :destroy
+	
 	
 	has_many :followed_questions,
 					 :through => :follow_question_relationships,
 					 :source => :question
+					 
 
 	has_many :follow_topic_relationships,
 					 :class_name => "FollowTopicRelationship",
-					 :foreign_key => :follower_id
+					 :foreign_key => :follower_id,
+					 :dependent => :destroy
 					 
 	has_many :followed_questions, 
 		 			 :through => :follow_topic_relationships,
- 					 :source => :topic
+ 					 :source => :topic,
+					 :dependent => :destroy
 	
-	has_many :votes
+	has_many :votes, :dependent => :destroy
 end

@@ -1,0 +1,8 @@
+<li data-id="<%= comment.id %>">
+	<%= comment.get("answerer").get("username") %>
+	<br />
+	<%= comment.get("votes").count %> votes<br />
+	<%= comment.body %>
+</li>
+
+

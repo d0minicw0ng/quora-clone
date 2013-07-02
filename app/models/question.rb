@@ -8,9 +8,11 @@ class Question < ActiveRecord::Base
 						 
   has_many :answers,
   				 :class_name => "Comment",
-					 :foreign_key => :question_id
+					 :foreign_key => :question_id,
+					 :dependent => :destroy
 					 
-	has_many :follow_question_relationships
+	has_many :follow_question_relationships, :dependent => :destroy
+	
 	
 	has_many :followers,
 					 :through => :follow_question_relationships,
