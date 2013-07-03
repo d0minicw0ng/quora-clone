@@ -26,4 +26,8 @@ class Question < ActiveRecord::Base
 		recent_questions = Question.where("created_at > ?", 2.weeks.ago)
 		recent_questions.select { |question| question.answers.empty? }
 	end
+
+  def self.most_recent_questions
+    Question.all.sort_by { |question| question.created_at }.reverse!
+  end
 end

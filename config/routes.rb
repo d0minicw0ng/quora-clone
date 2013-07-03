@@ -1,4 +1,8 @@
 Quora::Application.routes.draw do
+  resource :feed do
+    get 'most_recent'
+  end
+
   devise_for :users
 	resources :users
 
@@ -14,6 +18,7 @@ Quora::Application.routes.draw do
   resource :follow_question_relationships, :only => [:create, :destroy]
   resource :follow_user_relationships, :only => [:create, :destroy]
   resource :question_topic_relationship, :only => [:create, :destroy]
+
   resources :topics do
     member do
       get 'trending'
@@ -22,5 +27,5 @@ Quora::Application.routes.draw do
 
 	resources :votes, :only => [:create, :destroy]
 
-  root :to => "root#root"
+  root :to => "feeds#root"
 end
