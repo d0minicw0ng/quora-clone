@@ -8,45 +8,49 @@
 </head>
 
 <body>
-<% if user_signed_in? %>
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <!-- <a class="brand" href=""> -->
-    	<span style="float:left">
-				<%= link_to image_tag('/assets/quora.png'), root_url %>
-			</span>
-    <!-- </a> -->
-    <ul class="nav">
-			<li>
-				<form class="navbar-search pull-left" 
-					style="padding:0 100px">
-				  <input type="text" 
-						class="search-query" 
-						placeholder="Search">
-					<button type="submit" 
-						class="btn">
-						Search
-					</button>
-				</form>
-			</li>
+	<% if user_signed_in? %>
+	<div class="navbar navbar-fixed-top">
+	  <div class="navbar-inner">
+	    <!-- <a class="brand" href=""> -->
+	    	<span style="float:left">
+					<%= link_to image_tag('/assets/quora.png'), root_url %>
+				</span>
+	    <!-- </a> -->
+	    <ul class="nav">
+				<li>
+					<form class="navbar-search pull-left" 
+						style="padding:0 100px">
+					  <input type="text" 
+							class="search-query" 
+							placeholder="Search">
+						<button type="submit" 
+							class="btn">
+							Search
+						</button>
+					</form>
+				</li>
 			
-      <li>
-				<%= link_to current_user.username, user_url(current_user) %>
-			</li>
+	      <li>
+					<%= link_to current_user.username, user_url(current_user) %>
+				</li>
 			
-      <li>
-				<%= link_to "Logout", 
-					destroy_user_session_path, 
-					:method => :delete %>
-			</li>
-    </ul>
-  </div>
-</div>
+	      <li>
+					<%= link_to "Logout", 
+						destroy_user_session_path, 
+						:method => :delete %>
+				</li>
+	    </ul>
+	  </div>
+	</div>
 
-<div id="sidebar">
-	<%= link_to "Ask A Question", new_question_url, :html => { :class => "ask_question" } %><br />
-	<%= link_to "Unanswered Questions", unanswered_questions_url, :html => { :class => "unanswered_questions" } %>
-</div>	
+	<div id="sidebar">
+		<%= link_to "Ask A Question", 
+			new_question_url, 
+			:html => { :class => "ask_question" } %><br />
+		<%= link_to "Unanswered Questions", 
+			unanswered_questions_url, 
+			:html => { :class => "unanswered_questions" } %>
+	</div>	
 <% end %>
 	
 <% if notice %>

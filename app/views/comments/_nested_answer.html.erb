@@ -2,24 +2,14 @@
 	<%= link_to answer.answerer.username, user_url(answer.answerer) %>
 	<br />
 	<div>
-		<span>
-			<span id='votes_count_"<%= answer.id %>"'><%= pluralize(answer.votes.count, "vote") %></span>
-			<% if answer.votes.count > 0 %> 
-				by <% answer.votes[0..2].each do |vote| %>
-					   <%= vote.voter.username %>
-					 <% end %>
-			  <% if answer.votes.count > 3 %>
-				  , and <%= answer.votes.count - 3 %> others
-			  <% end %>
-			<% end %>
-		</span>
+		<span class='votes_count' vote-id="<%= answer.id %>"><%= pluralize(answer.votes.count, "vote") %></span>
 		
 		<%= form_for vote, :remote => true, :html => { :class => "upvote" } do |f| %>
 			<%= f.hidden_field :answer_id, :value => answer.id %>
 			<%= f.submit "Upvote" %>
 		<% end %>
 	</div> 
-	<br />
+	
 	<%= answer.body %>
 	<% if answer.answerer_id == current_user.id %>
 		<%= link_to "Delete Comment", 
@@ -28,7 +18,7 @@
 			:remote => true,
 			:html => { :class => "delete_comment"} %>
 	<% end %>
-	<br /><br />
+		
 	<ul class="child_comments">
 		<% if answer.child_comments %>
 			<% answer.child_comments.each do |child_comment| %>
@@ -37,42 +27,33 @@
 			<% end %>
 		<% end %>
 	</ul>
+	
+	<a href="#" class="new_comment">Reply</a>
+	<%= form_for comment, 
+		html: { class: "child_comment_area hidden", "new-comment-id" => answer.id  },
+		:remote => true do |f| %>
+		
+		<%= f.text_field(:body) %>
+		<%= f.hidden_field(:question_id, :value => @question.id) %>
+		<%= f.hidden_field(:parent_comment_id, :value => answer.id) %>
+
+		<div id="leave_reply"><%= f.submit "Comment" %></div>
+	<% end %>
 </li>
 
-<a class="new_comment">Comment</a>
-
-<%= form_for comment, 
-	html: { class: "child_comment_area hidden" },
-	:remote => true do |f| %>
-		
-	<%= f.text_field(:body) %>
-	<%= f.hidden_field(:question_id, :value => @question.id) %>
-	<%= f.hidden_field(:parent_comment_id, :value => answer.id) %>
-
-	<div id="leave_reply"><%= f.submit "Comment" %></div>
-<% end %>
-
 <script>
-	$('.upvote').on("ajax:success", function(event){
-		var newVoteCount = parseInt($(event.currentTarget).parent().find("#votes_count_<%= %>").html()[0]) + 1;
-		console.log($(event.currentTarget).parent());
-		console.log(newVoteCount)
-		if (newVoteCount == 1){
-			$(event.currentTarget).parent().find("span.votes_count").html('1 vote');				
-		} else {
-			$(event.currentTarget).parent().find("span.votes_count").html(newVoteCount + ' votes');	
-		};
-	});
-
-	$(".new_comment").on("click", function(){
-		$(this).next(".child_comment_area").toggleClass("hidden");
-	});	
-	
-	$("#leave_reply").on("ajax:success", function(event, data){
-		$(".child_comments").append(data);
-	})
-	
 	$(".delete_comment").on("ajax:success", function(event){
-		$(this).closest("li").remove();
+		console.log("deleting")
+		$(this).parent("li").remove();
+	})
+
+	$(".delete_comment").on("click", function(event){
+		$.ajax({
+			url: "/comments",
+			type: "DELETE",
+			success: function(){
+				$(event.currentTarget).parent("li").remove();
+			}
+		})
 	})
 </script>

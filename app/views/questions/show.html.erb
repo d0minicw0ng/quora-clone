@@ -5,22 +5,22 @@
 <a class="get_comment_area">Leave a Comment</a>
 
 <hr width="80%">
-<p><span id="answers_count"><%= @answers.count %></span> Answers</p>
+<p><span id="answers_count"><%= pluralize(@answers.count, 'Answer')%></span></p>
 <hr width="80%">
 
 <div class="comment_area hidden">
 	<%= link_to current_user.username, user_url(current_user) %><br />
-
+	
 	<%= form_for @comment, html: { class: "new_comment" }, :remote => true do |f| %>
 		<%= f.text_area(:body, rows: 3) %><br />
 		<%= f.hidden_field(:question_id, :value => @question.id) %>
 
-		<div id="leave_answer"><%= f.submit "Answer" %></div>
+		<%= f.submit "Answer" %>
 	<% end %>
 	<hr width="80%">
 </div>
 
-<ul id="answers_html">
+<ul id="answers">
 	<% @answers.each do |answer| %>
 		<%= render :partial => "comments/nested_answer", 
 			:locals => { :answer => answer, :comment => @comment, :vote => @vote }%>
@@ -28,20 +28,38 @@
 </ul>	
  
 <script>
-	// Show comment box script
-	$(".get_comment_area").on("click", function(event){
-		$(".comment_area").toggleClass("hidden");
-	})
-	
 	// Leave comment script
 	$(".new_comment").on("ajax:success", function(event, data){
+		console.log("creating...")
 		var template = JST["comments/show"]({
 			comment: data
 		})
-		
-		$("#answers_html").append(template)
+	
+		$("#answers").append(template);
 		$(".new_comment").find("textarea").val("");
-		var count = parseInt($("#answers_count").html());
-		$("#answers_count").html(count + 1);
+		var count = parseInt($("#answers_count").html().match(/\d+/));
+		$("#answers_count").html(owl.pluralize("Answer", (count + 1)));
+	})
+	
+	var toggleReplyBox = function(){
+		$(".new_comment").on("click", function(event){
+			event.preventDefault();
+			var id = $(event.currentTarget).parent().attr("data-id");
+			$("li").find("[new-comment-id=" + id + "]").toggleClass("hidden");
+		});	
+	};
+	var upVoteAjax = function(){
+		$('.upvote').on("ajax:success", function(event){
+			var newVoteCount = parseInt($(event.currentTarget).parent().find("#votes_count_<%= %>").html()[0]) + 1;
+				$(event.currentTarget).parent().find("span.votes_count").html(owl.pluralize('vote', newVoteCount));				
+		});	
+	};
+	
+	toggleReplyBox();
+	upVoteAjax();
+	
+	// Show comment box script
+	$(".get_comment_area").on("click", function(event){
+		$(".comment_area").toggleClass("hidden");
 	})
 </script>
