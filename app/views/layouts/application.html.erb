@@ -8,51 +8,52 @@
 </head>
 
 <body>
-	<% if user_signed_in? %>
+<% if user_signed_in? %>
 	<div class="navbar navbar-fixed-top">
 	  <div class="navbar-inner">
 	    <!-- <a class="brand" href=""> -->
-	    	<span style="float:left">
-					<%= link_to image_tag('/assets/quora.png'), root_url %>
-				</span>
+    	<span style="float:left">
+				<%= link_to image_tag('/assets/quora.png'), root_url %>
+			</span>
 	    <!-- </a> -->
-	    <ul class="nav">
-				<li>
-					<form class="navbar-search pull-left"
-						style="padding:0 100px">
-					  <input type="text"
-							class="search-query"
-							placeholder="Search">
-						<button type="submit"
-							class="btn">
-							Search
-						</button>
-					</form>
-				</li>
+      <div class="nav-collapse">
+		    <ul class="nav">
+					<li>
+						<form class="navbar-search pull-left"
+							style="padding:0 100px">
+						  <input type="text"
+								class="search-query"
+								placeholder="Search">
+							<button type="submit"
+								class="btn">
+								Search
+							</button>
+						</form>
+					</li>
 
-				<li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Write<b class="caret"></b>
-					</a>
-          <ul class="dropdown-menu">
-              <li>
+					<li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							Write<b class="caret"></b>
+						</a>
+	          <ul class="dropdown-menu">
+	            <li>
 								<%= link_to "Ask a Question", new_question_url %>
 							</li>
-              <li>
+	            <li>
 								<%= link_to "Unanswered Questions", unanswered_questions_url %>
 							</li>
-          </ul>
-      	</li>
+	          </ul>
+	      	</li>
 
-				<li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<%= current_user.username %><b class="caret"></b>
-					</a>
-          <ul class="dropdown-menu">
-              <li>
+					<li class="dropdown">
+	          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<%= current_user.username %><b class="caret"></b>
+						</a>
+	          <ul class="dropdown-menu">
+	            <li>
 								<%= link_to "Profile", user_url(current_user) %>
 							</li>
-              <li>
+	            <li>
 								<%= link_to "User Settings", edit_user_registration_url %>
 							</li>
 				      <li>
@@ -60,7 +61,8 @@
 									destroy_user_session_path,
 									:method => :delete %>
 							</li>
-          </ul>
+	          </ul>
+					</div>
       	</li>
 	    </ul>
 	  </div>
@@ -75,6 +77,7 @@
 			:html => { :class => "unanswered_questions" } %>
 	</div>
 <% end %>
+
 
 <% if notice %>
 	<p class="notice"><%= notice %></p>
