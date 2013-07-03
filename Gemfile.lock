@@ -125,6 +125,8 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
+    rails3-jquery-autocomplete (1.0.11)
+      rails (~> 3.0)
     railties (3.2.13)
       actionpack (= 3.2.13)
       activesupport (= 3.2.13)
@@ -184,6 +186,7 @@ DEPENDENCIES
   paperclip
   pg
   rails (= 3.2.13)
+  rails3-jquery-autocomplete
   sass-rails (~> 3.2.3)
   therubyracer
   twitter-bootstrap-rails

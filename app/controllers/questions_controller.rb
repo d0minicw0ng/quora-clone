@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  autocomplete :topic, :name, :full => true
+
 	def new
 		@question = Question.new
 	end
