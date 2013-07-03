@@ -9,9 +9,7 @@ class QuestionsController < ApplicationController
       topic = Topic.find(params[:topic_id])
       @question.topics << topic
     end
-    p params
 		@question.save!
-
 		redirect_to question_url(@question)
 	end
 

@@ -1,3 +1,18 @@
+<%= form_for @rel,
+	:remote => true,
+	:html => { :class => current_user.followed_topics.include?(@topic) ? "follow_topic hidden" : "follow_topic"} do |f| %>
+	<%= f.hidden_field :topic_id, :value => @topic.id %>
+	<%= f.submit "Follow Topic" %>
+<% end %>
+
+<%= form_for @rel,
+	:remote => true,
+	:html => { :class => current_user.followed_topics.include?(@topic) ? "unfollow_topic" : "unfollow_topic hidden",
+	:method => :delete } do |f| %>
+	<%= f.hidden_field :topic_id, :value => @topic.id %>
+	<%= f.submit "Unfollow Topic" %>
+<% end %>
+
 <h1><%= @topic.name %></h1>
 
 <ul class="nav nav-pills">
@@ -29,5 +44,14 @@
 <script>
 	$(".add_question").on("click", function(){
 		$(".add_question_form").toggleClass("hidden")
+	})
+
+	$(".follow_topic").on("ajax:success", function(){
+		$(".follow_topic").toggleClass("hidden")
+		$(".unfollow_topic").toggleClass("hidden")
+	})
+	$(".unfollow_topic").on("ajax:success", function(){
+		$(".follow_topic").toggleClass("hidden")
+		$(".unfollow_topic").toggleClass("hidden")
 	})
 </script>

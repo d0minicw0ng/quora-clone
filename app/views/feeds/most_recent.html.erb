@@ -1,0 +1,15 @@
+<ul class="nav nav-pills">
+  <li><%= link_to "Top Stories", root_url %></li>
+  <li class="active"><%= link_to "Most Recent", most_recent_feed_url %></li>
+</ul>
+
+<div id="most_recent_stories">
+	<ul>
+		<% @questions.each do |question| %>
+		 	<li data-id="<%= question.id %>">
+			  <%= link_to question.title, question_url(question) %>
+			</li>
+			<hr width="80%">
+	  <% end %>
+	</ul>
+</div>
