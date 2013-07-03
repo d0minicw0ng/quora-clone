@@ -9,6 +9,7 @@ Quora::Application.routes.draw do
 	end
 
 	resources :comments
+  resources :topics
 
   resource :follow_question_relationships, :only => [:create, :destroy]
   resource :follow_user_relationships, :only => [:create, :destroy]

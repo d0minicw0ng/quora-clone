@@ -17,6 +17,11 @@ class Question < ActiveRecord::Base
 					 :through => :follow_question_relationships,
 					 :source => :follower
 
+  has_many :question_topic_relationships, :dependent => :destroy
+
+  has_many :topics, :through => :question_topic_relationships
+
+
 	def self.recent_unanswered_questions
 		recent_questions = Question.where("created_at > ?", 2.weeks.ago)
 		recent_questions.select { |question| question.answers.empty? }

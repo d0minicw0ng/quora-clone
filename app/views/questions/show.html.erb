@@ -12,6 +12,12 @@
 	<%= f.submit "Unfollow Question" %>
 <% end %>
 
+<% @question.topics.each do |topic| %>
+	<span class="label label-inverse">
+		<%= link_to topic.name, topic_url(topic) %>
+	</span>
+<% end %>
+
 <h3><%= @question.title %></h3>
 
 <p><%= @question.body %></p>
