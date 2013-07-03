@@ -1,4 +1,32 @@
+<% if current_user.id != @user.id %>
+	<%= form_for @rel,
+		:remote => true,
+		:html => { :class => current_user.followed_questions.include?(@user) ? "follow_user hidden" : "follow_user"} do |f| %>
+		<%= f.hidden_field :followed_user_id, :value => @user.id %>
+		<%= f.submit "Follow User" %>
+	<% end %>
+<% end %>
+
+	<%= form_for @rel,
+		:remote => true,
+		:html => { :class => current_user.followed_questions.include?(@user) ? "unfollow_user" : "unfollow_user hidden" , :method => :delete } do |f| %>
+		<%= f.hidden_field :followed_user_id, :value => @user.id %>
+		<%= f.submit "Unfollow User" %>
+	<% end %>
+
 <h3>Oh hey, <%= @user.username %></h3>
 
 <%= image_tag @user.profile_picture.url(:small) %>
 
+
+
+<script>
+	$(".follow_user").on("ajax:success", function(){
+		$(".follow_user").toggleClass("hidden");
+		$(".unfollow_user").toggleClass("hidden");
+	})
+	$(".unfollow_user").on("ajax:success", function(){
+		$(".follow_user").toggleClass("hidden");
+		$(".unfollow_user").toggleClass("hidden");
+	})
+</script>

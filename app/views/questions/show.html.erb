@@ -1,12 +1,13 @@
-<%= form_for @rel, :remote => true,
+<%= form_for @rel,
+	:remote => true,
 	:html => { :class => current_user.followed_questions.include?(@question) ? "follow_question hidden" : "follow_question"} do |f| %>
 	<%= f.hidden_field :question_id, :value => @question.id %>
 	<%= f.submit "Follow Question" %>
 <% end %>
 
-<%= form_for @rel, :remote => true,
+<%= form_for @rel,
+	:remote => true,
 	:html => { :class => current_user.followed_questions.include?(@question) ? "unfollow_question" : "unfollow_question hidden" , :method => :delete } do |f| %>
-	<%#= f.hidden_field :follower_id, :value => current_user.id %>
 	<%= f.hidden_field :question_id, :value => @question.id %>
 	<%= f.submit "Unfollow Question" %>
 <% end %>

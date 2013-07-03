@@ -11,7 +11,7 @@ Quora::Application.routes.draw do
 	resources :comments
 
   resource :follow_question_relationships, :only => [:create, :destroy]
-
+  resource :follow_user_relationships, :only => [:create, :destroy]
 	resources :votes, :only => [:create, :destroy]
 
   root :to => "root#root"
