@@ -2,7 +2,7 @@ class FollowTopicRelationshipsController < ApplicationController
   def create
     @rel = FollowTopicRelationship.new(params[:follow_topic_relationship])
     @rel.follower_id = current_user.id
-    @rel.save
+    @rel.save!
 
     render :json => @rel
   end

@@ -16,4 +16,5 @@
 //= require pluralize
 //= require twitter/bootstrap
 //= require underscore
+//= require_tree ../templates
 //= require_tree .

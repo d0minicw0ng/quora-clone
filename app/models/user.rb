@@ -66,8 +66,7 @@ class User < ActiveRecord::Base
 
 	has_many :followed_topics,
 		 			 :through => :follow_topic_relationships,
- 					 :source => :topic,
-					 :dependent => :destroy
+ 					 :source => :topic
 
 	has_many :votes,
 					 :class_name => "Vote",
