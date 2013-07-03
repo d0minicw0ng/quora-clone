@@ -18,41 +18,64 @@
 	    <!-- </a> -->
 	    <ul class="nav">
 				<li>
-					<form class="navbar-search pull-left" 
+					<form class="navbar-search pull-left"
 						style="padding:0 100px">
-					  <input type="text" 
-							class="search-query" 
+					  <input type="text"
+							class="search-query"
 							placeholder="Search">
-						<button type="submit" 
+						<button type="submit"
 							class="btn">
 							Search
 						</button>
 					</form>
 				</li>
-			
-	      <li>
-					<%= link_to current_user.username, user_url(current_user) %>
-				</li>
-			
-	      <li>
-					<%= link_to "Logout", 
-						destroy_user_session_path, 
-						:method => :delete %>
-				</li>
+
+				<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Write<b class="caret"></b>
+					</a>
+          <ul class="dropdown-menu">
+              <li>
+								<%= link_to "Ask a Question", new_question_url %>
+							</li>
+              <li>
+								<%= link_to "Unanswered Questions", unanswered_questions_url %>
+							</li>
+          </ul>
+      	</li>
+
+				<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<%= current_user.username %><b class="caret"></b>
+					</a>
+          <ul class="dropdown-menu">
+              <li>
+								<%= link_to "Profile", user_url(current_user) %>
+							</li>
+              <li>
+								<%= link_to "User Settings", edit_user_registration_url %>
+							</li>
+				      <li>
+								<%= link_to "Logout",
+									destroy_user_session_path,
+									:method => :delete %>
+							</li>
+          </ul>
+      	</li>
 	    </ul>
 	  </div>
 	</div>
 
 	<div id="sidebar">
-		<%= link_to "Ask A Question", 
-			new_question_url, 
+		<%= link_to "Ask A Question",
+			new_question_url,
 			:html => { :class => "ask_question" } %><br />
-		<%= link_to "Unanswered Questions", 
-			unanswered_questions_url, 
+		<%= link_to "Unanswered Questions",
+			unanswered_questions_url,
 			:html => { :class => "unanswered_questions" } %>
-	</div>	
+	</div>
 <% end %>
-	
+
 <% if notice %>
 	<p class="notice"><%= notice %></p>
 <% end %>

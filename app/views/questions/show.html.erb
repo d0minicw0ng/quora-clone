@@ -1,3 +1,18 @@
+<% if !current_user.followed_questions.include?(@question) %>
+		<%= form_for @rel,
+			:html => { :class => "follow_question" } do |f| %>
+			<%= f.hidden_field :question_id, :value => @question.id %>
+			<%= f.submit "Follow Question" %>
+		<% end %>
+<% else %>
+	<%= form_for @rel,
+		:html => { :class => "unfollow_question", :method => :delete } do |f| %>
+		<%#= f.hidden_field :follower_id, :value => current_user.id %>
+		<%= f.hidden_field :question_id, :value => @question.id %>
+		<%= f.submit "Unfollow Question" %>
+	<% end %>
+<% end %>
+
 <h3><%= @question.title %></h3>
 
 <p><%= @question.body %></p>
@@ -28,6 +43,32 @@
 </ul>
 
 <script>
+	// Show comment box script
+	$(".get_comment_area").on("click", function(event){
+		$(".comment_area").toggleClass("hidden");
+	})
+
+	var deleteComment = function(){
+		$(".delete_comment").on("ajax:success", function(event){
+			$(event.currentTarget).parent("li").remove();
+		})
+	}();
+
+	var toggleReplyBox = function(){
+		$(".new_reply").on("click", function(event){
+			event.preventDefault();
+			var id = $(event.currentTarget).parent().attr("data-id");
+			$("li").find("[new-comment-id=" + id + "]").toggleClass("hidden");
+		});
+	}();
+
+	var upVoteAjax = function(){
+		$(".upvote").on("ajax:success", function(){
+			var count = $(event.currentTarget).parent().find(".votes_count").html();
+			$(event.currentTarget).parent().find(".votes_count").html(count + " " + owl.pluralize('vote', count));
+		});
+	}();
+
 	// Leave comment script
 	$(".new_comment").on("ajax:success", function(event, data){
 		var template = JST["comments/show"]({
@@ -39,13 +80,7 @@
 		var count = parseInt($("#answers_count").html().replace(/\s.+/, "")) + 1;
 		$("#answers_count").html(count + " " + owl.pluralize("Answer", count));
 	})
-
-	// Show comment box script
-	$(".get_comment_area").on("click", function(event){
-		$(".comment_area").toggleClass("hidden");
-	})
-
-	$(".delete_comment").on("ajax:success", function(event){
-		$(event.currentTarget).parent("li").remove();
-	})
 </script>
+
+
+

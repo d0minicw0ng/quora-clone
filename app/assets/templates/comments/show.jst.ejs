@@ -1,25 +1,27 @@
 <li data-id="<%= comment.id %>">
 	<a href="/users/<%= comment.answerer.id %>"><%= comment.answerer.username %></a>
-	<br />
-	<%= comment.votes.count %> votes<br />
+
+	<span class='votes_count'>
+		<%= comment.votes.length + " " + owl.pluralize("vote", comment.votes.length) %>
+	</span><br />
+	<hr width="80%">
+
 	<%= comment.body %>
 	<a href="/comments/<%= comment.id %>" class="delete_comment" data-remote="true" data-method="delete">
 		Delete Comment
-	</a>
-	<br />
+	</a><br /><br />
+
 	<ul class="child_comments"></ul>
+
+	<a href="#" class="new_reply">Reply</a>
+
+	<form action="/comments" method="POST" class="child_comment_area hidden" data-remote="true">
+
+		<input type="text" name=comment[body]>
+		<input type="hidden" value=<%= comment.question_id %> name="comment[question_id]">
+		<input type="hidden" value=<%= comment.id %> name="comment[parent_comment_id]">
+
+		<div id="leave_reply"><input type="submit" value="Comment"></div>
+	</form>
 </li>
 
-<a class="new_comment">Comment</a>
-
-<form action="/comments" method="POST" class="child_comment_area hidden" data-remote="true">
-
-	<input type="text" name=comment[body]>
-	
-	<input type="hidden" value=<%= comment.question_id %> name="comment[question_id]">
-	<input type="hidden" value=<%= comment.id %> name="comment[parent_comment_id]">
-	
-	<div id="leave_reply"><input type="submit" value="Comment"></div>
-</form>
-	
-	

@@ -4,7 +4,6 @@
 	<span class='votes_count'>
 		<%= pluralize(answer.votes.count, "vote") %>
 	</span><br />
-
 	<hr width="80%">
 
 	<%= answer.body %>
@@ -44,14 +43,22 @@
 </li>
 
 <script>
+
 	$("ul#answers").on("click", ".new_reply", function(event){
 		event.preventDefault();
 		var id = $(event.currentTarget).parent().attr("data-id");
 		$("li").find("[new-comment-id=" + id + "]").toggleClass("hidden");
 	});
-
+	//
+	// $(".new_reply").on("click", function(event){
+	// 	event.preventDefault();
+	// 	var id = $(event.currentTarget).parent().attr("data-id");
+	// 	$("li").find("[new-comment-id=" + id + "]").toggleClass("hidden");
+	// });
+	//
 	$("ul#answers").on("ajax:success", ".upvote", function(event){
 		var count = $(event.currentTarget).parent().find(".votes_count").html();
+		$(".upvote").text("Upvoted")
 		console.log(count)
 		$(event.currentTarget).parent().find(".votes_count").html(count + " " + owl.pluralize('vote', count));
 	});

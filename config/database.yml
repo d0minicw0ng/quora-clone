@@ -7,15 +7,15 @@ development:
   timeout: 5000
 
 test:
-	adapter: postgresql
-	encoding: unicode
-	database: quora_test
+  adapter: postgresql
+  encoding: unicode
+  database: quora_test
   pool: 5
-	timeout: 5000
+  timeout: 5000
 
 production:
-	adapter: postgresql
-	encoding: unicode
-	database: quora_production
-	pool: 5
-	timeout: 5000
+  adapter: postgresql
+  encoding: unicode
+  database: quora_production
+  pool: 5
+  timeout: 5000
