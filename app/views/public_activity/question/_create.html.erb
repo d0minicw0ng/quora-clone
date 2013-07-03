@@ -1,0 +1,9 @@
+asked a question
+
+<% if activity.trackable %>
+  <%= link_to activity.trackable.title, activity.trackable %>
+<% else %>
+  which has since been removed
+<% end %>
+
+<%= time_ago_in_words(activity.trackable.created_at) %> ago

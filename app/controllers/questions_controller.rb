@@ -10,6 +10,8 @@ class QuestionsController < ApplicationController
       @question.topics << topic
     end
 		@question.save!
+    @question.create_activity :create, owner: current_user
+
 		redirect_to question_url(@question)
 	end
 

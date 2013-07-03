@@ -1,4 +1,6 @@
 class Question < ActiveRecord::Base
+  include PublicActivity::Common
+
   attr_accessible :title, :body, :asker_id
 	validates_presence_of :title, :body
 

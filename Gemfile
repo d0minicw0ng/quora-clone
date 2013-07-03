@@ -52,3 +52,4 @@ gem 'twitter-bootstrap-rails'
 
 # Postgres
 gem 'pg'
+gem 'public_activity'

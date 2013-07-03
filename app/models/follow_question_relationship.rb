@@ -1,4 +1,5 @@
 class FollowQuestionRelationship < ActiveRecord::Base
+
   attr_accessible :question_id, :follower_id
 
 	belongs_to :question,

@@ -1,4 +1,6 @@
 Quora::Application.routes.draw do
+  get "activities/index"
+
   resource :feed do
     get 'most_recent'
   end
