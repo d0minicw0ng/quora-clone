@@ -3,15 +3,14 @@
 <br /><hr width="80%">
 <%= link_to "Add Question", "#", :class => "add_question" %>
 <%= form_for @question,
-	:remote => true,
 	:html => { :class => "add_question_form hidden"} do |f| %>
+	<input type='hidden' value="<%= @topic.id %>" name="topic_id" >
+
 	<%= f.label :title %>
 	<%= f.text_field :title %><br />
 
 	<%= f.label :body %>
 	<%= f.text_area :body, :rows => 2 %><br />
-
-	<%= f.hidden_field :topic_id, :value => @topic.id %>
 
 	<%= f.submit "Create Question" %>
 <% end %>

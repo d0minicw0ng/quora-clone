@@ -5,7 +5,11 @@ class QuestionsController < ApplicationController
 
 	def create
 		@question = current_user.questions.build(params[:question])
-    @question.topic_ids << params[:question][:topic_id] if params[:question][:topic_id]
+    if params[:topic_id]
+      topic = Topic.find(params[:topic_id])
+      @question.topics << topic
+    end
+    p params
 		@question.save!
 
 		redirect_to question_url(@question)
