@@ -1,1 +1,0 @@
-Quora.Models.Question = Backbone.Model.extend({});
