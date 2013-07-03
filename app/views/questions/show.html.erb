@@ -24,13 +24,13 @@
 	</span>
 <% end %>
 
-<%= form_for :question_topic_relationship,
+<%#= form_for :question_topic_relationship,
 	:html => { :class => "add_question_topic" },
 	:remote => true do |f| %>
-	<%= f.hidden_field :question_id, :value => @question.id %><br />
-	<%= f.text_field :topic_id %>
-	<%= f.submit "Add Topic" %>
-<% end %>
+	<%#= f.hidden_field :question_id, :value => @question.id %><br />
+	<%#= f.text_field :topic_id %>
+	<%#= f.submit "Add Topic" %>
+<%# end %>
 
 <h3><%= @question.title %></h3>
 
@@ -83,7 +83,7 @@
 
 	var deleteComment = function(){
 		$(".delete_comment").on("ajax:success", function(event){
-			$(event.currentTarget).parent("li").remove();
+			$(this).parent("li").remove();
 		})
 	}();
 

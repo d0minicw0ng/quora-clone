@@ -1,1 +1,28 @@
 <h1><%= @topic.name %></h1>
+
+<br /><hr width="80%">
+<%= link_to "Add Question", "#", :class => "add_question" %>
+<%= form_for @question,
+	:remote => true,
+	:html => { :class => "add_question_form hidden"} do |f| %>
+	<%= f.label :title %>
+	<%= f.text_field :title %><br />
+
+	<%= f.label :body %>
+	<%= f.text_area :body, :rows => 2 %><br />
+
+	<%= f.hidden_field :topic_id, :value => @topic.id %>
+
+	<%= f.submit "Create Question" %>
+<% end %>
+<h3>Questions</h3>
+<% @topic.questions.each do |question| %>
+	<%= link_to question.title, question_url(question) %>
+	<hr width="80%">
+<% end %>
+
+<script>
+	$(".add_question").on("click", function(){
+		$(".add_question_form").toggleClass("hidden")
+	})
+</script>

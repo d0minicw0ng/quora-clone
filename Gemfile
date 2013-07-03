@@ -52,5 +52,3 @@ gem 'twitter-bootstrap-rails'
 
 # Postgres
 gem 'pg'
-
-gem 'rails3-jquery-autocomplete'
