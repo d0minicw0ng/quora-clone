@@ -1,38 +1,40 @@
 <li data-id="<%= answer.id %>">
 	<%= link_to answer.answerer.username, user_url(answer.answerer) %>
-	<br />
-	<div>
-		<span class='votes_count' vote-id="<%= answer.id %>"><%= pluralize(answer.votes.count, "vote") %></span>
-		
-		<%= form_for vote, :remote => true, :html => { :class => "upvote" } do |f| %>
-			<%= f.hidden_field :answer_id, :value => answer.id %>
-			<%= f.submit "Upvote" %>
-		<% end %>
-	</div> 
-	
+
+	<span class='votes_count'>
+		<%= pluralize(answer.votes.count, "vote") %>
+	</span><br />
+
+	<hr width="80%">
+
 	<%= answer.body %>
 	<% if answer.answerer_id == current_user.id %>
-		<%= link_to "Delete Comment", 
-			comment_url(answer), 
+		<%= link_to "Delete Comment",
+			comment_url(answer),
 			:method => :delete,
 			:remote => true,
-			:html => { :class => "delete_comment"} %>
+			:class => "delete_comment" %>
+	<% end %><br /><br />
+
+	<%= form_for vote, :remote => true, :html => { :class => "upvote" } do |f| %>
+		<%= f.hidden_field :answer_id, :value => answer.id %>
+		<%= f.submit "Upvote" %>
 	<% end %>
-		
+
 	<ul class="child_comments">
 		<% if answer.child_comments %>
 			<% answer.child_comments.each do |child_comment| %>
-				<%= render :partial => "comments/nested_answer", 
+				<%= render :partial => "comments/nested_answer",
 					:locals => { :answer => child_comment, :comment => comment, :vote => vote } %>
 			<% end %>
 		<% end %>
 	</ul>
-	
-	<a href="#" class="new_comment">Reply</a>
-	<%= form_for comment, 
+
+	<a href="#" class="new_reply">Reply</a>
+	<%= form_for comment,
 		html: { class: "child_comment_area hidden", "new-comment-id" => answer.id  },
 		:remote => true do |f| %>
-		
+
 		<%= f.text_field(:body) %>
 		<%= f.hidden_field(:question_id, :value => @question.id) %>
 		<%= f.hidden_field(:parent_comment_id, :value => answer.id) %>
@@ -42,18 +44,15 @@
 </li>
 
 <script>
-	$(".delete_comment").on("ajax:success", function(event){
-		console.log("deleting")
-		$(this).parent("li").remove();
-	})
+	$("ul#answers").on("click", ".new_reply", function(event){
+		event.preventDefault();
+		var id = $(event.currentTarget).parent().attr("data-id");
+		$("li").find("[new-comment-id=" + id + "]").toggleClass("hidden");
+	});
 
-	$(".delete_comment").on("click", function(event){
-		$.ajax({
-			url: "/comments",
-			type: "DELETE",
-			success: function(){
-				$(event.currentTarget).parent("li").remove();
-			}
-		})
-	})
+	$("ul#answers").on("ajax:success", ".upvote", function(event){
+		var count = $(event.currentTarget).parent().find(".votes_count").html();
+		console.log(count)
+		$(event.currentTarget).parent().find(".votes_count").html(count + " " + owl.pluralize('vote', count));
+	});
 </script>
