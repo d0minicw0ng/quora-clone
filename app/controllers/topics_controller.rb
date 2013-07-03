@@ -17,4 +17,11 @@ class TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
     @question = Question.new
   end
+
+  def trending
+    @topic = Topic.find(params[:id])
+    @questions =
+      @topic.questions.sort_by {|question| question.created_at }.reverse!
+    @question = Question.new
+  end
 end

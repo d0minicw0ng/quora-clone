@@ -1,8 +1,8 @@
 <h1><%= @topic.name %></h1>
 
 <ul class="nav nav-pills">
-  <li class="active"><%= link_to "All Questions", topic_url(@topic) %></li>
-  <li><%= link_to "Trending", trending_topic_url(@topic) %></li>
+  <li><%= link_to "All Questions", topic_url(@topic) %></li>
+  <li class="active"><%= link_to "Trending", trending_topic_url(@topic) %></li>
 </ul>
 
 <br /><hr width="80%">
@@ -20,8 +20,8 @@
 	<%= f.submit "Create Question" %>
 <% end %>
 
-<h3>Questions</h3>
-<% @topic.questions.each do |question| %>
+<h3>Trending Questions</h3>
+<% @questions.each do |question| %>
 	<%= link_to question.title, question_url(question) %>
 	<hr width="80%">
 <% end %>
