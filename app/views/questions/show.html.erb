@@ -1,16 +1,14 @@
-<% if !current_user.followed_questions.include?(@question) %>
-		<%= form_for @rel,
-			:html => { :class => "follow_question" } do |f| %>
-			<%= f.hidden_field :question_id, :value => @question.id %>
-			<%= f.submit "Follow Question" %>
-		<% end %>
-<% else %>
-	<%= form_for @rel,
-		:html => { :class => "unfollow_question", :method => :delete } do |f| %>
-		<%#= f.hidden_field :follower_id, :value => current_user.id %>
-		<%= f.hidden_field :question_id, :value => @question.id %>
-		<%= f.submit "Unfollow Question" %>
-	<% end %>
+<%= form_for @rel, :remote => true,
+	:html => { :class => current_user.followed_questions.include?(@question) ? "follow_question hidden" : "follow_question"} do |f| %>
+	<%= f.hidden_field :question_id, :value => @question.id %>
+	<%= f.submit "Follow Question" %>
+<% end %>
+
+<%= form_for @rel, :remote => true,
+	:html => { :class => current_user.followed_questions.include?(@question) ? "unfollow_question" : "unfollow_question hidden" , :method => :delete } do |f| %>
+	<%#= f.hidden_field :follower_id, :value => current_user.id %>
+	<%= f.hidden_field :question_id, :value => @question.id %>
+	<%= f.submit "Unfollow Question" %>
 <% end %>
 
 <h3><%= @question.title %></h3>
@@ -43,6 +41,16 @@
 </ul>
 
 <script>
+  // follow/unfollow question dynamic
+	$(".follow_question").on("ajax:success", function(){
+		$(".follow_question").toggleClass("hidden")
+		$(".unfollow_question").toggleClass("hidden")
+	})
+	$(".unfollow_question").on("ajax:success", function(){
+		$(".follow_question").toggleClass("hidden")
+		$(".unfollow_question").toggleClass("hidden")
+	})
+
 	// Show comment box script
 	$(".get_comment_area").on("click", function(event){
 		$(".comment_area").toggleClass("hidden");
