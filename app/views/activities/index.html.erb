@@ -1,13 +1,18 @@
 <br />
 <ul class="nav nav-pills">
 	<li class="active"><%= link_to "Feed", activities_index_url %></li>
-  <li><%= link_to "Top Stories", top_questions_feed_url %></li>
+  <li><%= link_to "Most Followed", top_questions_feed_url %></li>
   <li><%= link_to "Most Recent", most_recent_feed_url %></li>
 </ul>
 
 <% @activities.each do |activity| %>
   <div class="activity">
-    <%= link_to activity.owner.username, activity.owner if activity.owner %>
+		<% if activity.owner.is_a?(User) %>
+    	<%= link_to activity.owner.username, activity.owner if activity.owner %>
+		<% else %>
+			Question <%= link_to activity.owner.title, activity.owner if activity.owner %>
+		<% end %>
     <%= render_activity activity %>
   </div>
+	<hr width="80%">
 <% end %>

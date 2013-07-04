@@ -1,6 +1,5 @@
 class QuestionTopicRelationship < ActiveRecord::Base
-  include PublicActivity::Model
-  tracked
+  include PublicActivity::Common
 
   attr_accessible :question_id, :topic_id
 

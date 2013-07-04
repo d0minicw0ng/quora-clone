@@ -5,11 +5,16 @@ class QuestionsController < ApplicationController
 
 	def create
 		@question = current_user.questions.build(params[:question])
-    if params[:topic_id]
-      topic = Topic.find(params[:topic_id])
-      @question.topics << topic
-    end
 		@question.save!
+    if params[:topic_id]
+      # topic = Topic.find(params[:topic_id])
+      # @question.topics << topic
+      @rel = QuestionTopicRelationship.new(
+        :topic_id => params[:topic_id],
+        :question_id => @question.id)
+      @rel.save!
+      @rel.create_activity :create, owner: @question
+    end
     @question.create_activity :create, owner: current_user
 
 		redirect_to question_url(@question)

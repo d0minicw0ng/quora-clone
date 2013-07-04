@@ -1,7 +1,10 @@
 class QuestionTopicRelationshipsController < ApplicationController
   def create
     @rel = QuestionTopicRelationship.new(params[:question_topic_relationship])
-    @rel.save
+    @rel.save!
+
+    question = Question.find(params[:question_topic_relationship][:question_id])
+    @rel.create_activity :create, owner: question
 
     render :json => @rel
   end
