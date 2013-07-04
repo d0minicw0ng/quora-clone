@@ -41,10 +41,11 @@
 		<% end %>
 	</ul>
 
-	<a href="#" class="new_reply">Reply</a>
+	<%= link_to "Reply", "#", :class => "new_reply", :id => answer.id %>
 	<hr width="80%">
+
 	<%= form_for comment,
-		html: { class: "child_comment_area hidden" },
+		html: { class: "child_comment_area_" + answer.id.to_s + " hidden" },
 		:remote => true do |f| %>
 
 		<%= f.text_field(:body) %>

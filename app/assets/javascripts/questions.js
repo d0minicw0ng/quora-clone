@@ -63,9 +63,9 @@ var toggleVote = function(){
 }
 
 var toggleReplyBox = function(){
-	$("ul").on("click", "a.new_reply", function(event){
+	$("ul").on("click", "li a.new_reply", function(event){
 		event.preventDefault();
-		console.log($(this).next("form.child_comment_area"))
-		$(this).next(".child_comment_area").toggleClass("hidden")
+		var i = $(this).attr("id");
+		$(".child_comment_area_" + i).toggleClass("hidden")
 	});
 }

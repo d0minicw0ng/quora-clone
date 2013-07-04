@@ -7,7 +7,6 @@
 	<span class='votes_count'>
 		<%= comment.votes.length + " " + owl.pluralize("vote", comment.votes.length) %>
 	</span><br />
-	<hr width="80%">
 
 	<%= comment.body %>
 	<a href="/comments/<%= comment.id %>" class="delete_comment" data-remote="true" data-method="delete">
@@ -31,9 +30,10 @@
 
 	<ul class="child_comments"></ul>
 
-	<a href="#" class="new_reply">Reply</a>
+	<a href="#" class="new_reply" id="<%= comment.id %>">Reply</a>
+	<hr width="80%">
 
-	<form action="/comments" method="POST" class="child_comment_area hidden" data-remote="true">
+	<form action="/comments" method="POST" class="child_comment_area_<%= comment.id %> hidden" data-remote="true">
 		<input type="text" name=comment[body]>
 		<input type="hidden" value=<%= comment.question_id %> name="comment[question_id]">
 		<input type="hidden" value=<%= comment.id %> name="comment[parent_comment_id]">
