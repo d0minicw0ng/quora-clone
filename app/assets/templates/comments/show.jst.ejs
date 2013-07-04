@@ -1,5 +1,8 @@
 <li data-id="<%= comment.id %>">
-	<a href="/users/<%= comment.answerer.id %>"><%= comment.answerer.username %></a>
+	<img src="<%= url %>">
+	<span style="padding-left:30px">
+		<a href="/users/<%= comment.answerer.id %>"><%= comment.answerer.username %></a>
+	</span>
 
 	<span class='votes_count'>
 		<%= comment.votes.length + " " + owl.pluralize("vote", comment.votes.length) %>
@@ -11,12 +14,26 @@
 		Delete Comment
 	</a><br /><br />
 
+	<div class="vote">
+		<form action="/votes" data-remote="true" class="upvote" method="POST">
+			<input type="hidden" value="<%= comment.id %>" name="vote[answer_id]">
+			<input type="hidden" value="<%= voter.id %>" name="vote[voter_id]">
+			<input type="submit" value="Upvote">
+		</form>
+
+		<form action="/votes" data-remote="true" class="downvote" method="POST">
+			<input type="hidden" name="_method" value="delete">
+			<input type="hidden" value="<%= comment.id %>" name="vote[answer_id]">
+			<input type="hidden" value="<%= voter.id %>" name="vote[voter_id]">
+			<input type="submit" value="Unvote">
+		</form>
+	</div>
+
 	<ul class="child_comments"></ul>
 
 	<a href="#" class="new_reply">Reply</a>
 
 	<form action="/comments" method="POST" class="child_comment_area hidden" data-remote="true">
-
 		<input type="text" name=comment[body]>
 		<input type="hidden" value=<%= comment.question_id %> name="comment[question_id]">
 		<input type="hidden" value=<%= comment.id %> name="comment[parent_comment_id]">

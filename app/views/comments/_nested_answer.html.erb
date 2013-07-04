@@ -1,5 +1,8 @@
 <li data-id="<%= answer.id %>">
-	<%= link_to answer.answerer.username, user_url(answer.answerer) %>
+	<%= image_tag current_user.profile_picture.url(:small) %>
+	<span style="padding-left:30px">
+		<%= link_to answer.answerer.username, user_url(answer.answerer) %>
+	</span>
 
 	<span class='votes_count'>
 		<%= pluralize(answer.votes.count, "vote") %>

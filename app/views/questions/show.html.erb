@@ -61,61 +61,20 @@
 	<% end %>
 </ul>
 
+<script type="application/json" id="current_user_id">
+	<%= current_user.to_json.html_safe %>
+</script>
+
+<script type="application/json" id="current_user_avatar">
+	<%= current_user.profile_picture.url(:small).to_json.html_safe %>
+</script>
+
 <script>
-	// Remove Question Topic Relationship
-	$(".remove_topic_tag").on("ajax:success", function(){
-		$(this).parent("span").remove()
-	})
-	$(".follow_question").on("ajax:success", function(){
-		$(".follow_question").toggleClass("hidden");
-		$(".unfollow_question").toggleClass("hidden");
-	})
-	$(".unfollow_question").on("ajax:success", function(){
-		$(".follow_question").toggleClass("hidden");
-		$(".unfollow_question").toggleClass("hidden");
-	})
-
-	// Show comment box script
-	$(".get_comment_area").on("click", function(event){
-		$(".comment_area").toggleClass("hidden");
-	})
-
-	$("ul#answers").on("ajax:success", ".delete_comment", function(){
-		$(this).parent("li").remove();
-		var count = parseInt($("#answers_count").html().replace(/\s.+/, "")) - 1;
-		$("#answers_count").html(count + " " + owl.pluralize("Answer", count));
-	})
-
-	// Leave comment script
-	$(".new_comment").on("ajax:success", function(event, data){
-		var template = JST["comments/show"]({
-			comment: data
-		})
-		$("#answers").append(template);
-		$(".new_comment").find("textarea").val("");
-		var count = parseInt($("#answers_count").html().replace(/\s.+/, "")) + 1;
-		$("#answers_count").html(count + " " + owl.pluralize("Answer", count));
-	})
-
-		$("ul#answers").on("click", "a.new_reply", function(event){
-		event.preventDefault();
-		console.log($(this).next(".child_comment_area"))
-		$(this).next(".child_comment_area").toggleClass("hidden")
-	});
-
-	$("ul").on("ajax:success", ".upvote", function(event){
-		var count =
-			parseInt($(this).closest("li").find(".votes_count").html().replace(/\s/, "")) + 1;
-			console.log(count)
-		$(this).parent("div").toggleClass("vote").toggleClass("unvote")
-		$(this).closest("li").find(".votes_count").html(count + " " + owl.pluralize('vote', count));
-	});
-
-	$("ul").on("ajax:success", ".downvote", function(event){
-		var count =
-			parseInt($(this).closest("li").find(".votes_count").html().replace(/\s/, "")) - 1;
-		console.log(count)
-		$(this).parent("div").toggleClass("vote").toggleClass("unvote")
-		$(this).closest("li").find(".votes_count").html(count + " " + owl.pluralize('vote', count));
-	});
+	removeTopicTag();
+	toggleFollowButton();
+	leaveComment();
+	getCommentArea();
+	deleteComment();
+	toggleVote();
+	toggleReplyBox();
 </script>
