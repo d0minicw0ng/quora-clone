@@ -1,10 +1,9 @@
-followed the topic
-
 <% if activity.trackable %>
+	followed the topic
   <%= link_to activity.trackable.topic.name,
 		topic_url(activity.trackable.topic) %>
 	<%= time_ago_in_words(activity.trackable.created_at) %> ago
 <% else %>
-	which has since been unfollowed
+	unfollowed a topic
 <% end %>
 

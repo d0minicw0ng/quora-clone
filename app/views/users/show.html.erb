@@ -17,8 +17,6 @@
 
 <h3><%= @user.username %></h3>
 
-<%= image_tag @user.profile_picture.url(:big) %>
-
 <div id="user_profile_feed">
 	<% @activities.each do |activity| %>
 	  <div class="activity">
@@ -32,6 +30,8 @@
 		<hr width="60%">
 	<% end %>
 </div>
+
+<div class="avatar"><%= image_tag @user.profile_picture.url(:big) %></div>
 
 <script>
 	$(".follow_user").on("ajax:success", function(){

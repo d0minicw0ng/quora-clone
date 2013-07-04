@@ -5,12 +5,22 @@
   <li><%= link_to "Most Recent", most_recent_feed_url %></li>
 </ul>
 
+<div id="index_sidebar">
+	<h5>Trending Topics</h5>
+	<% @topics.each do |topic| %>
+		<%= link_to topic.name, topic_url(topic) %><br />
+	<% end %>
+	<hr>
+	<h5>Review</h5>
+	<%= link_to "All Questions", questions_url %>
+</div>
+
 <% @activities.each do |activity| %>
   <div class="activity">
 		<% if activity.owner.is_a?(User) %>
     	<%= link_to activity.owner.username, activity.owner if activity.owner %>
-		<% else %>
-			Question <%= link_to activity.owner.title, activity.owner if activity.owner %>
+		<% elsif activity.owner.is_a?(Question) %>
+			<%= link_to activity.owner.title, activity.owner if activity.owner %>
 		<% end %>
     <%= render_activity activity %>
   </div>

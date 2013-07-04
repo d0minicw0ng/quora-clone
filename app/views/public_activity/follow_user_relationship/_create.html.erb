@@ -1,10 +1,9 @@
-followed the user
-
 <% if activity.trackable %>
+	followed the user
   <%= link_to activity.trackable.followed_user.username,
 		user_url(activity.trackable.followed_user) %>
 	<%= time_ago_in_words(activity.trackable.created_at) %> ago
 <% else %>
-	which has since been unfollowed
+	unfollowed a user
 <% end %>
 

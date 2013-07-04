@@ -1,0 +1,13 @@
+<h3>All Questions</h3>
+<hr width="80%">
+
+<% @questions.each do |question| %>
+	<h5><%= question.title %></h5>
+	<p>
+		Question added by
+		<%= link_to question.asker.username, user_url(question.asker) %>
+	</p>
+	<%= question.body %><br /><br />
+	<%= question.created_at.strftime("%b %d, %Y %H:%M %p") %>
+	<hr width="80%"><br />
+	<% end %>
