@@ -33,8 +33,6 @@ gem 'jquery-rails'
 
 # To use debugger
 gem 'debugger'
-
-gem 'backbone-on-rails'
 gem 'ejs'
 
 gem 'better_errors'
@@ -52,4 +50,6 @@ gem 'twitter-bootstrap-rails'
 
 # Postgres
 gem 'pg'
+
+# Feed
 gem 'public_activity'

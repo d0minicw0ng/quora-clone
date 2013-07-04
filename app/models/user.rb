@@ -11,16 +11,14 @@ class User < ActiveRecord::Base
 									:username,
 								  :password,
 									:password_confirmation,
-									:remember_me
-
-	attr_accessible :profile_picture
+									:remember_me,
+                  :profile_picture
 
 	has_attached_file :profile_picture,
 										:styles => {
 											:big => '200x200>',
 											:small => '50x50#'
-									  },
-										:default_url => "images/missing.png"
+									  }
 
 	has_many :questions,
 			     :class_name => "Question",
