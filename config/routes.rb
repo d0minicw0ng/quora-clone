@@ -20,7 +20,7 @@ Quora::Application.routes.draw do
 
   resource :follow_question_relationships, :only => [:create, :destroy]
   resource :follow_user_relationships, :only => [:create, :destroy]
-    resource :follow_topic_relationships, :only => [:create, :destroy]
+  resource :follow_topic_relationships, :only => [:create, :destroy]
   resource :question_topic_relationship, :only => [:create, :destroy]
 
   resources :topics do
@@ -29,7 +29,7 @@ Quora::Application.routes.draw do
     end
   end
 
-	resources :votes, :only => [:create, :destroy]
+	resource :votes, :only => [:create, :destroy]
 
   root :to => "activities#index"
 end

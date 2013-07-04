@@ -5,7 +5,6 @@ followed the question
 		question_url(activity.trackable.question) %>
 	<%= time_ago_in_words(activity.trackable.created_at) %> ago
 <% else %>
-	which <%= link_to activity.owner.username, user_url(activity.owner) %>
-	has since unfollowed
+	which has since been unfollowed
 <% end %>
 

@@ -36,13 +36,14 @@ Quora::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
-	
+
 	config.paperclip_defaults = {
 		:storage => :s3,
 		:s3_credentials => {
 			:bucket => "quora-clone-development",
 			:access_key_id => "AKIAJO3RZI7T2Q5ULJNA",
 			:secret_access_key => "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"
-		}
+		},
+    :s3_host_name => "s3-us-west-1.amazonaws.com"
 	}
 end

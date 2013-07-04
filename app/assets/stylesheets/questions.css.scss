@@ -5,3 +5,15 @@
 .hidden {
 	display:none;
 }
+
+.vote {
+	.downvote {
+		display:none;
+	}
+}
+
+.unvote {
+	.upvote {
+		display:none;
+	}
+}
