@@ -1,0 +1,13 @@
+<div id="index_sidebar">
+	<hr>
+	<strong><%= link_to "Ask a Question", new_question_url %></strong><br />
+	<strong><%= link_to "Unanswered Questions", unanswered_questions_url%></strong>
+	<hr>
+	<h5>Trending Topics</h5>
+	<% topics.each do |topic| %>
+		<strong><%= link_to topic.name, topic_url(topic) %></strong><br />
+	<% end %>
+	<hr>
+	<h5>Review</h5>
+	<strong><%= link_to "All Questions", questions_url %></strong>
+</div>

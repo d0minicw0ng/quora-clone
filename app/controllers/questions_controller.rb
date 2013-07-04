@@ -28,7 +28,7 @@ class QuestionsController < ApplicationController
   end
 
 	def index
-		@questions = Question.all
+		@questions = Question.all.sort_by! {|question| question.created_at }.reverse!
 
     respond_to do |format|
       format.html { render :index }

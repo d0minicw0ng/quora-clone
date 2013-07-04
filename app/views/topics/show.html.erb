@@ -22,6 +22,7 @@
 
 <br /><hr width="80%">
 <%= link_to "Add Question", "#", :class => "add_question" %>
+
 <%= form_for @question,
 	:html => { :class => "add_question_form hidden"} do |f| %>
 	<input type='hidden' value="<%= @topic.id %>" name="topic_id" >

@@ -8,6 +8,7 @@
 		<%= link_to question.asker.username, user_url(question.asker) %>
 	</p>
 	<%= question.body %><br /><br />
+	<strong class="all_ans_count"><%= question.answers.count %> Answers</strong>
 	<%= question.created_at.strftime("%b %d, %Y %H:%M %p") %>
 	<hr width="80%"><br />
 	<% end %>

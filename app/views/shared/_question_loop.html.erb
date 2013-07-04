@@ -1,0 +1,15 @@
+<ul>
+	<% questions.each do |question| %>
+	 	<li data-id="<%= question.id %>">
+		  <%= link_to question.title, question_url(question) %>
+			<% if question.topics %>
+				<% question.topics.each do |topic| %>
+					<span class="label label-important">
+						<%= topic.name %>
+					</span>
+				<% end %>
+			<% end %>
+		</li>
+		<hr width="60%">
+  <% end %>
+</ul>
