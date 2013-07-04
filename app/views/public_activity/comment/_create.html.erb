@@ -3,8 +3,8 @@ replied to the question
 <% if activity.trackable %>
   <%= link_to activity.trackable.question.title,
 		question_url(activity.trackable.question) %>
+	<%= time_ago_in_words(activity.trackable.created_at) %> ago
 <% else %>
   which has since been removed
 <% end %>
 
-<%= time_ago_in_words(activity.trackable.created_at) %> ago
