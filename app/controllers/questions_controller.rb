@@ -7,8 +7,6 @@ class QuestionsController < ApplicationController
 		@question = current_user.questions.build(params[:question])
 		@question.save!
     if params[:topic_id]
-      # topic = Topic.find(params[:topic_id])
-      # @question.topics << topic
       @rel = QuestionTopicRelationship.new(
         :topic_id => params[:topic_id],
         :question_id => @question.id)
