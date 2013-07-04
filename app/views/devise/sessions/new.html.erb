@@ -1,18 +1,26 @@
-<h2>Sign in</h2>
+<div class="container">
+	<div class="row">
+		<div class="span4 offset4 well">
+			<legend>Please Sign In</legend>
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+			<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+			  <div><%= f.label :email %><br />
+			  <%= f.email_field :email, :autofocus => true %></div>
 
-  <div><%= f.label :password %><br />
-  <%= f.password_field :password %></div>
+			  <div><%= f.label :password %><br />
+			  <%= f.password_field :password %></div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+			  <% if devise_mapping.rememberable? -%>
+			    <span style="float:left"><%= f.check_box :remember_me %></span>
+					<span style="float:right;padding-right:185px;padding-top:3px">
+						<%= f.label :remember_me %>
+					</span>
+			  <% end %>
 
-  <div><%= f.submit "Sign in" %></div>
-<% end %>
+				<%= f.submit "Sign in", :class => "btn btn-danger btn-block" %>
+			<% end %>
+		</div>
+	</div>
+</div>
 
 <%= render "devise/shared/links" %>
-
