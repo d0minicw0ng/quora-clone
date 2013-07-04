@@ -3,6 +3,7 @@ Quora::Application.routes.draw do
 
   resource :feed do
     get 'most_recent'
+    get 'top_questions'
   end
 
   devise_for :users
@@ -30,5 +31,5 @@ Quora::Application.routes.draw do
 
 	resources :votes, :only => [:create, :destroy]
 
-  root :to => "feeds#root"
+  root :to => "activities#index"
 end

@@ -15,6 +15,15 @@ class QuestionsController < ApplicationController
 		redirect_to question_url(@question)
 	end
 
+  def update
+    @question = Question.find(params[:id])
+    if @question.update_attributes!(params[:question])
+      @question.create_activity :update, owner: current_user
+    end
+
+    render :json => @questeion
+  end
+
 	def index
 		questions = Question.all
 

@@ -1,12 +1,12 @@
 <br />
 <ul class="nav nav-pills">
 	<li><%= link_to "Feed", activities_index_url %></li>
-  <li><%= link_to "Top Stories", top_questions_feed_url %></li>
-  <li class="active"><%= link_to "Most Recent", most_recent_feed_url %></li>
+  <li class="active"><%= link_to "Top Stories", top_questions_feed_url %></li>
+  <li><%= link_to "Most Recent", most_recent_feed_url %></li>
 </ul>
 
 
-<div id="most_recent_stories">
+<div id="top_stories">
 	<ul>
 		<% @questions.each do |question| %>
 		 	<li data-id="<%= question.id %>">

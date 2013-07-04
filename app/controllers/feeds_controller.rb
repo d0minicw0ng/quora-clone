@@ -1,6 +1,6 @@
 class FeedsController < ApplicationController
-  def root
-    @questions = Question.all
+  def top_questions
+    @questions = Question.all.sort_by{ |question| question.followers }.reverse!
   end
 
   def most_recent

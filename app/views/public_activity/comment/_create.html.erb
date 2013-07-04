@@ -1,7 +1,8 @@
 replied to the question
 
 <% if activity.trackable %>
-  <%= link_to activity.trackable.question.title, activity.trackable %>
+  <%= link_to activity.trackable.question.title,
+		question_url(activity.trackable.question) %>
 <% else %>
   which has since been removed
 <% end %>

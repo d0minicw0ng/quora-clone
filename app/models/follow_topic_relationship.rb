@@ -1,4 +1,5 @@
 class FollowTopicRelationship < ActiveRecord::Base
+  include PublicActivity::Common
 
   attr_accessible :follower_id, :topic_id
 

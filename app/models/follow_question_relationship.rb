@@ -1,4 +1,5 @@
 class FollowQuestionRelationship < ActiveRecord::Base
+  include PublicActivity::Common
 
   attr_accessible :question_id, :follower_id
 

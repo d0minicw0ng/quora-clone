@@ -3,6 +3,7 @@ class FollowTopicRelationshipsController < ApplicationController
     @rel = FollowTopicRelationship.new(params[:follow_topic_relationship])
     @rel.follower_id = current_user.id
     @rel.save!
+    @rel.create_activity :create, owner: current_user
 
     render :json => @rel
   end
