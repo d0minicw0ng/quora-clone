@@ -1,7 +1,7 @@
 <% if activity.trackable %>
 	was added to the topic
   <%= link_to activity.trackable.name,
-		topic_url(activity.trackable.name) %>
+		topic_url(activity.trackable) %>
 	<%= time_ago_in_words(activity.trackable.created_at) %> ago
 <% else %>
 	was removed from a topic
