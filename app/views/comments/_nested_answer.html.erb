@@ -20,7 +20,9 @@
 		<div class="<%= "un" if current_user.has_vote?(answer) %>vote">
 			<%= form_for vote, :remote => true, :html => { :class => "upvote" } do |f| %>
 				<%= f.hidden_field :answer_id, :value => answer.id %>
-				<%= f.submit "Upvote" %>
+				<button type="submit" class="btn btn-link">
+					<i class="icon-thumbs-up"></i>
+				</button>
 			<% end %>
 
 			<%= form_for vote,
@@ -28,7 +30,9 @@
 				:method => :delete,
 				:html => { :class => "downvote" } do |f| %>
 				<%= f.hidden_field :answer_id, :value => answer.id %>
-				<%= f.submit "Unvote" %>
+				<button type="submit" class="btn btn-link">
+					<i class="icon-thumbs-down"></i>
+				</button>
 			<% end %>
 		</div>
 

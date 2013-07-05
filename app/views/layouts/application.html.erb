@@ -37,13 +37,16 @@
 					</a>
           <ul class="dropdown-menu">
             <li>
-							<%= link_to "Ask a Question", new_question_url %>
+							<%= link_to raw("Ask a Question <i class='icon-question-sign'></i>"),
+								new_question_url %>
 						</li>
             <li>
-							<%= link_to "Unanswered Questions", unanswered_questions_url %>
+							<%= link_to raw("Unanswered Questions <i class='icon-comment'></i>"),
+								unanswered_questions_url %>
 						</li>
 						<li>
-							<%= link_to "Create a Topic", new_topic_url %>
+							<%= link_to raw("Create a Topic <i class='icon-bullhorn'></i>"),
+								new_topic_url %>
 						</li>
           </ul>
       	</li>
@@ -54,13 +57,14 @@
 					</a>
           <ul class="dropdown-menu">
             <li>
-							<%= link_to "Profile", user_url(current_user) %>
+							<%= link_to raw("Profile <i class='icon-user'></i>"),
+								user_url(current_user) %>
 						</li>
             <li>
-							<%= link_to "User Settings", edit_user_registration_url %>
+							<%= link_to raw("User Settings <i class='icon-wrench'></i>"), edit_user_registration_url %>
 						</li>
 			      <li>
-							<%= link_to "Logout",
+							<%= link_to raw("Logout <i class='icon-remove-circle'></i>"),
 								destroy_user_session_path,
 								:method => :delete %>
 						</li>
