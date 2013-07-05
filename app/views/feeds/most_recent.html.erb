@@ -1,25 +1,8 @@
-<br />
-<ul class="nav nav-pills">
-	<li><%= link_to "Feed", activities_index_url %></li>
-  <li><%= link_to "Most Followed", top_questions_feed_url %></li>
-  <li class="active"><%= link_to "Most Recent", most_recent_feed_url %></li>
-</ul>
+<%= render :partial => "shared/top_bar", :locals => { link: "most_recent" } %>
 
+<%= render :partial => "shared/index_sidebar", :locals => { topics: @topics } %>
 
 <div id="most_recent_stories">
-	<ul>
-		<% @questions.each do |question| %>
-		 	<li data-id="<%= question.id %>">
-			  <%= link_to question.title, question_url(question) %>
-				<% if question.topics %>
-					<% question.topics.each do |topic| %>
-						<span class="label label-important">
-							<%= topic.name %>
-						</span>
-					<% end %>
-				<% end %>
-			</li>
-			<hr width="80%">
-	  <% end %>
-	</ul>
+	<%= render :partial => "shared/question_loop",
+		:locals => { questions: @questions } %>
 </div>

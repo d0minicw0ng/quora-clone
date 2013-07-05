@@ -53,3 +53,7 @@ gem 'pg'
 
 # Feed
 gem 'public_activity'
+
+#paginate
+gem 'will_paginate'
+

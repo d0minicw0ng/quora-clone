@@ -1,65 +1,57 @@
-<li data-id="<%= answer.id %>">
-	<%= link_to answer.answerer.username, user_url(answer.answerer) %>
+<li data-id="<%= answer.id %>" class="media">
+		<%= image_tag answer.answerer.profile_picture.url(:small) %>
+		<span style="padding-left:30px">
+			<%= link_to answer.answerer.username, user_url(answer.answerer) %>
+		</span>
 
-	<span class='votes_count'>
-		<%= pluralize(answer.votes.count, "vote") %>
-	</span><br />
+		<span class='votes_count'>
+			<%= pluralize(answer.votes.count, "vote") %>
+		</span><br /><br />
 
-	<%= answer.body %>
-	<% if answer.answerer_id == current_user.id %>
-		<%= link_to "Delete Comment",
-			comment_url(answer),
-			:method => :delete,
-			:remote => true,
-			:class => "delete_comment" %>
-	<% end %><br /><br />
+		<%= answer.body %>
+		<% if answer.answerer_id == current_user.id %>
+			<%= link_to "Delete Comment",
+				comment_url(answer),
+				:method => :delete,
+				:remote => true,
+				:class => "delete_comment" %>
+		<% end %><br /><br />
 
-	<%= form_for vote, :remote => true, :html => { :class => "upvote" } do |f| %>
-		<%= f.hidden_field :answer_id, :value => answer.id %>
-		<%= f.submit "Upvote" %>
-	<% end %>
-
-	<ul class="child_comments">
-		<% if answer.child_comments %>
-			<% answer.child_comments.each do |child_comment| %>
-				<%= render :partial => "comments/nested_answer",
-					:locals => { :answer => child_comment, :comment => comment, :vote => vote } %>
+		<div class="<%= "un" if current_user.has_vote?(answer) %>vote">
+			<%= form_for vote, :remote => true, :html => { :class => "upvote" } do |f| %>
+				<%= f.hidden_field :answer_id, :value => answer.id %>
+				<%= f.submit "Upvote" %>
 			<% end %>
+
+			<%= form_for vote,
+				:remote => true,
+				:method => :delete,
+				:html => { :class => "downvote" } do |f| %>
+				<%= f.hidden_field :answer_id, :value => answer.id %>
+				<%= f.submit "Unvote" %>
+			<% end %>
+		</div>
+
+		<ul class="child_comments">
+			<% if answer.child_comments %>
+				<% answer.child_comments.each do |child_comment| %>
+					<%= render :partial => "comments/nested_answer",
+						:locals => { :answer => child_comment, :comment => comment, :vote => vote } %>
+				<% end %>
+			<% end %>
+		</ul>
+
+		<%= link_to "Reply", "#", :class => "new_reply", :id => answer.id %>
+		<hr width="80%">
+
+		<%= form_for comment,
+			html: { class: "child_comment_area_" + answer.id.to_s + " hidden" },
+			:remote => true do |f| %>
+
+			<%= f.text_field(:body) %>
+			<%= f.hidden_field(:question_id, :value => @question.id) %>
+			<%= f.hidden_field(:parent_comment_id, :value => answer.id) %>
+
+			<div id="leave_reply"><%= f.submit "Comment" %></div>
 		<% end %>
-	</ul>
-
-	<a href="#" class="new_reply">Reply</a>
-	<hr width="80%">
-	<%= form_for comment,
-		html: { class: "child_comment_area hidden", "new-comment-id" => answer.id  },
-		:remote => true do |f| %>
-
-		<%= f.text_field(:body) %>
-		<%= f.hidden_field(:question_id, :value => @question.id) %>
-		<%= f.hidden_field(:parent_comment_id, :value => answer.id) %>
-
-		<div id="leave_reply"><%= f.submit "Comment" %></div>
-	<% end %>
 </li>
-
-<script>
-
-	$("ul#answers").on("click", ".new_reply", function(event){
-		event.preventDefault();
-		var id = $(event.currentTarget).parent().attr("data-id");
-		$("li").find("[new-comment-id=" + id + "]").toggleClass("hidden");
-	});
-	//
-	// $(".new_reply").on("click", function(event){
-	// 	event.preventDefault();
-	// 	var id = $(event.currentTarget).parent().attr("data-id");
-	// 	$("li").find("[new-comment-id=" + id + "]").toggleClass("hidden");
-	// });
-	//
-	$("ul#answers").on("ajax:success", ".upvote", function(event){
-		var count = $(event.currentTarget).parent().find(".votes_count").html();
-		$(".upvote").text("Upvoted")
-		console.log(count)
-		$(event.currentTarget).parent().find(".votes_count").html(count + " " + owl.pluralize('vote', count));
-	});
-</script>

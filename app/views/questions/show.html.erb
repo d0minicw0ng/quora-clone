@@ -61,50 +61,20 @@
 	<% end %>
 </ul>
 
+<script type="application/json" id="current_user_id">
+	<%= current_user.to_json.html_safe %>
+</script>
+
+<script type="application/json" id="current_user_avatar">
+	<%= current_user.profile_picture.url(:small).to_json.html_safe %>
+</script>
+
 <script>
-	// Remove Question Topic Relationship
-	$(".remove_topic_tag").on("ajax:success", function(){
-		$(this).parent("span").remove()
-	})
-	$(".follow_question").on("ajax:success", function(){
-		$(".follow_question").toggleClass("hidden");
-		$(".unfollow_question").toggleClass("hidden");
-	})
-	$(".unfollow_question").on("ajax:success", function(){
-		$(".follow_question").toggleClass("hidden");
-		$(".unfollow_question").toggleClass("hidden");
-	})
-
-	// Show comment box script
-	$(".get_comment_area").on("click", function(event){
-		$(".comment_area").toggleClass("hidden");
-	})
-
-	$(".delete_comment").on("ajax:success", function(event){
-		$(this).parent("li").remove();
-		var count = parseInt($("#answers_count").html().replace(/\s.+/, "")) - 1;
-		$("#answers_count").html(count + " " + owl.pluralize("Answer", count));
-	})
-
-	$(".new_reply").on("click", function(event){
-		event.preventDefault();
-		var id = $(event.currentTarget).parent().attr("data-id");
-		$("li").find("[new-comment-id=" + id + "]").toggleClass("hidden");
-	});
-
-	$(".upvote").on("ajax:success", function(){
-		var count = $(event.currentTarget).parent().find(".votes_count").html();
-		$(event.currentTarget).parent().find(".votes_count").html(count + " " + owl.pluralize('vote', count));
-	});
-
-	// Leave comment script
-	$(".new_comment").on("ajax:success", function(event, data){
-		var template = JST["comments/show"]({
-			comment: data
-		})
-		$("#answers").append(template);
-		$(".new_comment").find("textarea").val("");
-		var count = parseInt($("#answers_count").html().replace(/\s.+/, "")) + 1;
-		$("#answers_count").html(count + " " + owl.pluralize("Answer", count));
-	})
+	removeTopicTag();
+	toggleFollowButton();
+	leaveComment();
+	getCommentArea();
+	deleteComment();
+	toggleVote();
+	toggleReplyBox();
 </script>

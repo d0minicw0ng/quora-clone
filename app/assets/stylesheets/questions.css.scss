@@ -5,3 +5,19 @@
 .hidden {
 	display:none;
 }
+
+.vote {
+	.downvote {
+		display:none;
+	}
+}
+
+.unvote {
+	.upvote {
+		display:none;
+	}
+}
+
+.all_ans_count {
+	padding-right:20px;
+}

@@ -70,4 +70,9 @@ class User < ActiveRecord::Base
 					 :class_name => "Vote",
 					 :foreign_key => "voter_id",
 					 :dependent => :destroy
+
+  def has_vote?(answer)
+    vote = Vote.where("answer_id = ? AND voter_id = ?", answer.id, self.id)
+    vote.empty? ? false : true
+  end
 end

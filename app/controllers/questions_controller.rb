@@ -24,13 +24,16 @@ class QuestionsController < ApplicationController
       @question.create_activity :update, owner: current_user
     end
 
-    render :json => @questeion
+    render :json => @question
   end
 
 	def index
-		questions = Question.all
+    @questions = Question.paginate(:page => params[:page], :per_page => 5)
 
-		render :json => questions.as_json(:includes => [:asker])
+    respond_to do |format|
+      format.html
+      format.json { render :json => questions.as_json(:includes => [:asker]) }
+    end
 	end
 
 	def unanswered

@@ -15,11 +15,14 @@
 	<% end %>
 <% end %>
 
-<h3>Oh hey, <%= @user.username %></h3>
+<h3><%= @user.username %></h3>
 
-<%= image_tag @user.profile_picture.url(:small) %>
+<div id="user_profile_feed">
+	<%= render :partial => "shared/activity_feed",
+		:locals => { activities: @activities } %>
+</div>
 
-
+<div class="avatar"><%= image_tag @user.profile_picture.url(:big) %></div>
 
 <script>
 	$(".follow_user").on("ajax:success", function(){

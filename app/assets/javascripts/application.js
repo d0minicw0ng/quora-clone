@@ -12,9 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require autocomplete-rails
+//= require jquery.tokeninput
 //= require pluralize
 //= require twitter/bootstrap
 //= require underscore
 //= require_tree ../templates
 //= require_tree .
+
