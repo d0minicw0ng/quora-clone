@@ -69,3 +69,11 @@ var toggleReplyBox = function(){
 		$(".child_comment_area_" + i).toggleClass("hidden")
 	});
 }
+
+var autocomplete = function(){
+	$("#question_topic_tokens").tokenInput("/topics.json", {
+		crossDomain: false,
+		prePopulate: $("#question_topic_tokens").data("pre"),
+		theme: "facebook"
+	});
+}

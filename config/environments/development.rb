@@ -45,6 +45,5 @@ Quora::Application.configure do
 			:secret_access_key => "/0sdvIHcJ7pKEDCA+C3sB+XtTEF4nP5OX//opa0I"
 		},
     :s3_host_name => "s3-us-west-1.amazonaws.com"
-		}
 	}
 end
