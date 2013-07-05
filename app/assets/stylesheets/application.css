@@ -23,3 +23,19 @@
 	padding-top:80px;
 	padding-right:60px;
 }
+
+.footer {
+	position: relative;
+	margin-top: 50px;
+	height: 30px;
+	clear:both;
+	padding-top:20px;
+	padding-left:30px;
+}
+
+#navlist li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 20px;
+	padding-bottom: 20px;
+}

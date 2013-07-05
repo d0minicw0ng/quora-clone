@@ -1,0 +1,73 @@
+<% if user_signed_in? %>
+	<div class="navbar navbar-fixed-top">
+	  <div class="navbar-inner">
+	    <!-- <a class="brand" href=""> -->
+    	<span style="float:left;padding-left:50px">
+				<%= link_to image_tag('/assets/quora.png'), root_url %>
+			</span>
+	    <!-- </a> -->
+	    <ul class="nav">
+				<li>
+					<form class="navbar-search pull-left"
+						style="padding:0 100px">
+					  <input type="text"
+							class="search-query"
+							placeholder="Search">
+						<button type="submit"
+							class="btn">
+							Search
+						</button>
+					</form>
+				</li>
+
+				<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Write<b class="caret"></b>
+					</a>
+          <ul class="dropdown-menu">
+            <li>
+							<%= link_to raw("Ask a Question <i class='icon-question-sign'></i>"),
+								new_question_url %>
+						</li>
+            <li>
+							<%= link_to raw("Unanswered Questions <i class='icon-comment'></i>"),
+								unanswered_questions_url %>
+						</li>
+						<li>
+							<%= link_to raw("Create a Topic <i class='icon-bullhorn'></i>"),
+								new_topic_url %>
+						</li>
+          </ul>
+      	</li>
+
+				<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<%= current_user.username %><b class="caret"></b>
+					</a>
+          <ul class="dropdown-menu">
+            <li>
+							<%= link_to raw("Profile <i class='icon-user'></i>"),
+								user_url(current_user) %>
+						</li>
+            <li>
+							<%= link_to raw("User Settings <i class='icon-wrench'></i>"), edit_user_registration_url %>
+						</li>
+			      <li>
+							<%= link_to raw("Logout <i class='icon-remove-circle'></i>"),
+								destroy_user_session_path,
+								:method => :delete %>
+						</li>
+          </ul>
+      	</li>
+	    </ul>
+	  </div>
+	</div>
+<% end %>
+
+
+<% if notice %>
+	<p class="notice"><%= notice %></p>
+<% end %>
+<% if alert %>
+	<p class="alert"><%= alert %></p>
+<% end %>

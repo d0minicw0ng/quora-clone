@@ -1,4 +1,6 @@
 class Topic < ActiveRecord::Base
+  include PublicActivity::Common
+
   attr_accessible :name
 
   validates_uniqueness_of :name

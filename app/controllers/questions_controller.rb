@@ -13,7 +13,9 @@ class QuestionsController < ApplicationController
       @rel.save!
       @rel.create_activity :create, owner: @question
     end
-    @question.create_activity :create, owner: current_user
+    @question.create_activity :create,
+      owner: current_user,
+      recipient: @question
 
 		redirect_to question_url(@question)
 	end
@@ -21,7 +23,9 @@ class QuestionsController < ApplicationController
   def update
     @question = Question.find(params[:id])
     if @question.update_attributes!(params[:question])
-      @question.create_activity :update, owner: current_user
+      @question.create_activity :update,
+        owner: current_user,
+        recipient: @question
     end
 
     render :json => @question

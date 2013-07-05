@@ -6,6 +6,9 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(params[:topic])
     @topic.save!
+    @topic.create_activity :create,
+      owner: current_user,
+      recipient: @topic
     redirect_to topic_url(@topic)
   end
 
