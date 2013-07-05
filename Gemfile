@@ -55,3 +55,5 @@ gem 'pg'
 
 # Feed
 gem 'public_activity'
+
+gem 'kaminari'

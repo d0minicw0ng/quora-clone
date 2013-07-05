@@ -31,7 +31,6 @@ class QuestionsController < ApplicationController
     @questions = Question.all.sort_by! {|question| question.created_at }.reverse!
 
     respond_to do |format|
-      format.js
       format.html
       format.json { render :json => questions.as_json(:includes => [:asker]) }
     end
