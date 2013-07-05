@@ -12,8 +12,7 @@
 		"data-pre" => @question.topics.map(&:attributes).to_json,
 		:id => "question_topic_tokens" %><br />
 
-
-	<%= f.submit "Add Question"%>
+	<button type="submit" class="btn btn-success">Add Question</button>
 <% end %>
 
 <script>

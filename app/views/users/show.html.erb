@@ -3,7 +3,7 @@
 		:remote => true,
 		:html => { :class => current_user.followed_questions.include?(@user) ? "follow_user hidden" : "follow_user"} do |f| %>
 		<%= f.hidden_field :followed_user_id, :value => @user.id %>
-		<%= f.submit "Follow User" %>
+		<button type="submit" class="btn btn-success">Follow User</button>
 	<% end %>
 
 	<%= form_for @rel,
@@ -11,18 +11,22 @@
 		:html => { :class => current_user.followed_questions.include?(@user) ? "unfollow_user" : "unfollow_user hidden" ,
 		:method => :delete } do |f| %>
 		<%= f.hidden_field :followed_user_id, :value => @user.id %>
-		<%= f.submit "Unfollow User" %>
+		<button type="submit" class="btn btn-success">Unfollow User</button>
 	<% end %>
 <% end %>
 
 <h3><%= @user.username %></h3>
 
-<div class="avatar"><%= image_tag @user.profile_picture.url(:big) %></div>
+<div class="avatar">
+	<img src="<%= @user.profile_picture.url(:big) %>" class="img-polaroid">
+</div>
 
 <div id="user_profile_feed">
 	<%= render :partial => "shared/activity_feed",
 		:locals => { activities: @activities } %>
 </div>
+
+<%= will_paginate @activities %>
 
 <script>
 	$(".follow_user").on("ajax:success", function(){

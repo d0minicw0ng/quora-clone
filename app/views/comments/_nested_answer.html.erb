@@ -1,5 +1,6 @@
 <li data-id="<%= answer.id %>" class="media">
-		<%= image_tag answer.answerer.profile_picture.url(:small) %>
+		<img src="<%= answer.answerer.profile_picture.url(:small) %>" class="img-polaroid">
+
 		<span style="padding-left:30px">
 			<%= link_to answer.answerer.username, user_url(answer.answerer) %>
 		</span>
@@ -21,7 +22,7 @@
 			<%= form_for vote, :remote => true, :html => { :class => "upvote" } do |f| %>
 				<%= f.hidden_field :answer_id, :value => answer.id %>
 				<button type="submit" class="btn btn-link">
-					<i class="icon-thumbs-up"></i>
+					<i class="icon-thumbs-up"></i> Upvote
 				</button>
 			<% end %>
 
@@ -31,7 +32,7 @@
 				:html => { :class => "downvote" } do |f| %>
 				<%= f.hidden_field :answer_id, :value => answer.id %>
 				<button type="submit" class="btn btn-link">
-					<i class="icon-thumbs-down"></i>
+					<i class="icon-thumbs-down"></i> Unvote
 				</button>
 			<% end %>
 		</div>
@@ -56,6 +57,8 @@
 			<%= f.hidden_field(:question_id, :value => @question.id) %>
 			<%= f.hidden_field(:parent_comment_id, :value => answer.id) %>
 
-			<div id="leave_reply"><%= f.submit "Comment" %></div>
+			<div id="leave_reply">
+				<button type="submit" class="btn btn-success">Comment</button>
+			</div>
 		<% end %>
 </li>

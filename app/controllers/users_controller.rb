@@ -3,7 +3,8 @@ class UsersController < ApplicationController
 		@user = User.find(params[:id])
     @rel = FollowUserRelationship.new
     @activities = PublicActivity::Activity
-      .order("created_at desc")
-      .select { |activity| activity.owner.id == @user.id }
+      .where("owner_id = ?", @user.id)
+      .order("created_at DESC")
+      .paginate(:page => params[:page], :per_page => 10)
 	end
 end

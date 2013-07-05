@@ -2,7 +2,7 @@
 	:remote => true,
 	:html => { :class => current_user.followed_questions.include?(@question) ? "follow_question hidden" : "follow_question"} do |f| %>
 	<%= f.hidden_field :question_id, :value => @question.id %>
-	<%= f.submit "Follow Question" %>
+	<button type="submit" class="btn btn-success">Follow Question</button>
 <% end %>
 
 <%= form_for @rel,
@@ -10,7 +10,7 @@
 	:html => { :class => current_user.followed_questions.include?(@question) ? "unfollow_question" : "unfollow_question hidden",
 	:method => :delete } do |f| %>
 	<%= f.hidden_field :question_id, :value => @question.id %>
-	<%= f.submit "Unfollow Question" %>
+	<button type="submit" class="btn btn-success">Unfollow Question</button>
 <% end %>
 
 <% @question.topics.each do |topic| %>
@@ -36,7 +36,9 @@
 
 <p><%= @question.body %></p>
 
-<a class="get_comment_area">Leave a Comment</a>
+
+
+<button class="get_comment_area btn btn-link">Leave a Comment</button>
 
 <hr width="80%">
 <p><span id="answers_count"><%= pluralize(@answers.count, 'Answer')%></span></p>
@@ -49,7 +51,7 @@
 		<%= f.text_area(:body, rows: 3) %><br />
 		<%= f.hidden_field(:question_id, :value => @question.id) %>
 
-		<%= f.submit "Answer" %>
+		<button type="submit" class="btn btn-success">Answer</button>
 	<% end %>
 	<hr width="80%">
 </div>
