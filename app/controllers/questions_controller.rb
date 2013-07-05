@@ -13,6 +13,8 @@ class QuestionsController < ApplicationController
       @rel.save!
       @rel.create_activity :create, owner: @question
     end
+    @question.create_activity :create, owner: current_user
+
 
 		redirect_to question_url(@question)
 	end
@@ -45,6 +47,7 @@ class QuestionsController < ApplicationController
 		@comment = Comment.new
 		@vote = Vote.new
     @rel = FollowQuestionRelationship.new
+    @qtr = QuestionTopicRelationship.new
 	end
 
   def destroy

@@ -26,7 +26,7 @@ var toggleFollowButton = function(){
 };
 
 var removeTopicTag = function(){
-	$(".remove_topic_tag").on("ajax:success", function(){
+	$("ul#tags").on("ajax:success", ".remove_topic_tag", function(){
 		$(this).parent("span").remove()
 	})
 }
@@ -71,9 +71,15 @@ var toggleReplyBox = function(){
 }
 
 var autocomplete = function(){
-	$("#question_topic_tokens").tokenInput("/topics.json", {
+	$(".question_topic_tokens").tokenInput("/topics.json", {
 		crossDomain: false,
-		prePopulate: $("#question_topic_tokens").data("pre"),
+		prePopulate: $(".question_topic_tokens").data("pre"),
 		theme: "facebook"
+	});
+}
+
+var toggleTopicBox = function(){
+	$('.add_topic').on('click', function(){
+		$('.add_question_topic').toggleClass("hidden")
 	});
 }

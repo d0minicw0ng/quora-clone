@@ -1,8 +1,9 @@
 <% if activity.trackable %>
 	asked
-  <%= link_to activity.trackable.title, activity.trackable %>
+  <%= link_to activity.trackable.title,
+		question_url(activity.trackable) %>
 	<%= time_ago_in_words(activity.trackable.created_at) %> ago
 <% else %>
-	asked the question which has since been removed
+  asked a question which has since been removed
 <% end %>
 

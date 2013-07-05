@@ -1,0 +1,7 @@
+<span class="label label-inverse">
+	<a href="/topics/<%= relationship.topic_id %>"><%= relationship["topic"].name %></a>
+	<a href="/question_topic_relationships?question_id=<%= relationship.question_id %>&topic_id=<%= relationship.topic_id %>"
+		data-method="delete"
+		data-remote="true"
+		class="remove_topic_tag"><i class="icon-remove"></i></a>
+</span>

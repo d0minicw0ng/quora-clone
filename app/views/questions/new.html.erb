@@ -10,7 +10,7 @@
 	<%= f.label :topic_tokens, "Topics" %>
 	<%= f.text_field :topic_tokens,
 		"data-pre" => @question.topics.map(&:attributes).to_json,
-		:id => "question_topic_tokens" %><br />
+		:class => "question_topic_tokens" %><br />
 
 	<button type="submit" class="btn btn-success">Add Question</button>
 <% end %>

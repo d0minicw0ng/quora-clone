@@ -13,24 +13,30 @@
 	<button type="submit" class="btn btn-success">Unfollow Question</button>
 <% end %>
 
-<% @question.topics.each do |topic| %>
-	<span class="label label-inverse">
-		<%= link_to topic.name, topic_url(topic) %>
-		<%= link_to raw('<i class="icon-remove"></i>'),
-			question_topic_relationship_url(:question_id => @question.id, :topic_id => topic.id),
-			:method => :delete,
-			:remote => true,
-			:class => "remove_topic_tag" %>
-	</span>
-<% end %>
+<ul id="tags">
+	<% @question.topics.each do |topic| %>
+		<span class="label label-inverse">
+			<%= link_to topic.name, topic_url(topic) %>
+			<%= link_to raw('<i class="icon-remove"></i>'),
+				question_topic_relationships_url(:question_id => @question.id, :topic_id => topic.id),
+				:method => :delete,
+				:remote => true,
+				:class => "remove_topic_tag" %>
+		</span>
+	<% end %>
+</ul>
 
-<%#= form_for :question_topic_relationship,
-	:html => { :class => "add_question_topic" },
+<button class="add_topic label label-important">Add Topic</button>
+
+<%= form_for @qtr,
+	:html => { :class => "add_question_topic hidden" },
 	:remote => true do |f| %>
-	<%#= f.hidden_field :question_id, :value => @question.id %><br />
-	<%#= f.text_field :topic_id %>
-	<%#= f.submit "Add Topic" %>
-<%# end %>
+	<%= f.hidden_field :question_id, :value => @question.id %><br />
+	<%= f.text_field :topic_id, :class => "question_topic_tokens" %><br />
+	<button type="submit" class="topic_button btn btn-success">
+		Add Topic
+	</button>
+<% end %>
 
 <h3><%= @question.title %></h3>
 <p><%= @question.body %></p>
@@ -76,4 +82,14 @@
 	deleteComment();
 	toggleVote();
 	toggleReplyBox();
+	autocomplete();
+	toggleTopicBox();
+
+	$(".add_question_topic").on("ajax:success", function(event, data){
+		console.log(data)
+		var template = JST["topics/tags"]({ relationship: data })
+		$("ul#tags").append(template);
+		$("#question_topic_tokens").val("");
+		$(".add_question_topic").toggleClass("hidden");
+	})
 </script>

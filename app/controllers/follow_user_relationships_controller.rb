@@ -11,9 +11,9 @@ class FollowUserRelationshipsController < ApplicationController
     @rel = FollowUserRelationship.where("follower_id = ?
       AND followed_user_id = ?",
       current_user.id,
-      params[:follow_user_relationship][:followed_user_id])
+      params[:follow_user_relationship][:followed_user_id]).first
 
-    @rel.destroy(@rel)
+    @rel.destroy
 
     render :json => @rel
   end

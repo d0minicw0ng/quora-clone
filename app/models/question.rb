@@ -1,4 +1,5 @@
 class Question < ActiveRecord::Base
+  include PublicActivity::Common
 
   attr_accessible :title, :body, :asker_id, :topic_tokens
   attr_reader :topic_tokens
