@@ -1,11 +1,13 @@
 <div class="question">
-	<h5><%= question.title %></h5>
+	<h5><%= link_to question.title, question_url(question) %></h5>
 	<p>
 		Question added by
 		<%= link_to question.asker.username, user_url(question.asker) %>
 	</p>
 	<%= question.body %><br /><br />
-	<strong class="all_ans_count"><%= question.answers.count %> Answers</strong>
+	<strong class="all_ans_count">
+		<%= pluralize(question.answers.count, "Answer") %>
+	</strong>
 	<%= question.created_at.strftime("%b %d, %Y %H:%M %p") %>
 	<hr width="80%"><br />
 </div>

@@ -3,9 +3,6 @@ class FollowUserRelationshipsController < ApplicationController
     @rel = FollowUserRelationship.new(params[:follow_user_relationship])
     @rel.follower_id = current_user.id
     @rel.save!
-    @rel.create_activity :create,
-      owner: current_user,
-      recipient: @rel
 
     render :json => @rel
   end

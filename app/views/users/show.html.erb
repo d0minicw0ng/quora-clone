@@ -1,14 +1,14 @@
 <% if current_user.id != @user.id %>
 	<%= form_for @rel,
 		:remote => true,
-		:html => { :class => current_user.followed_questions.include?(@user) ? "follow_user hidden" : "follow_user"} do |f| %>
+		:html => { :class => current_user.followed_users.include?(@user) ? "follow_user hidden" : "follow_user"} do |f| %>
 		<%= f.hidden_field :followed_user_id, :value => @user.id %>
 		<button type="submit" class="btn btn-success">Follow User</button>
 	<% end %>
 
 	<%= form_for @rel,
 		:remote => true,
-		:html => { :class => current_user.followed_questions.include?(@user) ? "unfollow_user" : "unfollow_user hidden" ,
+		:html => { :class => current_user.followed_users.include?(@user) ? "unfollow_user" : "unfollow_user hidden" ,
 		:method => :delete } do |f| %>
 		<%= f.hidden_field :followed_user_id, :value => @user.id %>
 		<button type="submit" class="btn btn-success">Unfollow User</button>
@@ -29,12 +29,5 @@
 <%= will_paginate @activities %>
 
 <script>
-	$(".follow_user").on("ajax:success", function(){
-		$(".follow_user").toggleClass("hidden");
-		$(".unfollow_user").toggleClass("hidden");
-	})
-	$(".unfollow_user").on("ajax:success", function(){
-		$(".follow_user").toggleClass("hidden");
-		$(".unfollow_user").toggleClass("hidden");
-	})
+	followUser();
 </script>

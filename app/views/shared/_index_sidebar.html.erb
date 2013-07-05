@@ -4,7 +4,7 @@
 	<strong><%= link_to "Unanswered Questions", unanswered_questions_url%></strong>
 	<hr>
 	<h5>Trending Topics</h5>
-	<% topics.each do |topic| %>
+	<% Topic.trending_topics[0..5].each do |topic| %>
 		<strong><%= link_to topic.name, topic_url(topic) %></strong><br />
 	<% end %>
 	<hr>

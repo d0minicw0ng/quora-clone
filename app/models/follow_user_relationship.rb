@@ -1,5 +1,4 @@
 class FollowUserRelationship < ActiveRecord::Base
-  include PublicActivity::Common
 
   attr_accessible :followed_user_id, :follower_id
 

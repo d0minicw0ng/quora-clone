@@ -13,20 +13,13 @@ class QuestionsController < ApplicationController
       @rel.save!
       @rel.create_activity :create, owner: @question
     end
-    @question.create_activity :create,
-      owner: current_user,
-      recipient: @question
 
 		redirect_to question_url(@question)
 	end
 
   def update
     @question = Question.find(params[:id])
-    if @question.update_attributes!(params[:question])
-      @question.create_activity :update,
-        owner: current_user,
-        recipient: @question
-    end
+    @question.update_attributes!(params[:question])
 
     render :json => @question
   end
@@ -53,4 +46,17 @@ class QuestionsController < ApplicationController
 		@vote = Vote.new
     @rel = FollowQuestionRelationship.new
 	end
+
+  def destroy
+    @question = Question.find(params[:id])
+    @question.destroy
+    @activities = PublicActivity::Activity.where("trackable_type = ?
+      AND trackable_id = ?", "Question", params[:id])
+    @activities.each { |activity| activity.destroy }
+
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.json { render :json => @question }
+    end
+  end
 end

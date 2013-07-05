@@ -1,9 +1,8 @@
 <%= render :partial => "shared/top_bar", :locals => { link: "feed" } %>
 
-<%= render :partial => "shared/index_sidebar",
-	:locals => { topics: @topics } %>
+<%= render :partial => "shared/index_sidebar", :locals => { topics: @topics } %>
 
 <%= render :partial => "shared/activity_feed",
 	:locals => { activities: @activities } %>
 
-<%= will_paginate @activities %>
+<%= will_paginate @activities unless @activities.nil? %>
