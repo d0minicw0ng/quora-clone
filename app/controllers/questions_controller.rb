@@ -28,8 +28,7 @@ class QuestionsController < ApplicationController
   end
 
 	def index
-    @questions = Question.paginate(:page => params[:page], :per_page => 10)
-    # @questions = Question.all.sort_by! {|question| question.created_at }.reverse!
+    @questions = Question.paginate(:page => params[:page], :per_page => 5)
 
     respond_to do |format|
       format.html
