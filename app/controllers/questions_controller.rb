@@ -28,10 +28,11 @@ class QuestionsController < ApplicationController
   end
 
 	def index
-		@questions = Question.all.sort_by! {|question| question.created_at }.reverse!
+    @questions = Question.all.sort_by! {|question| question.created_at }.reverse!
 
     respond_to do |format|
-      format.html { render :index }
+      format.js
+      format.html
       format.json { render :json => questions.as_json(:includes => [:asker]) }
     end
 	end
