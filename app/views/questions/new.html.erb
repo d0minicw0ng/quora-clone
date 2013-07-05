@@ -7,11 +7,21 @@
 	<%= f.label :body %>
 	<%= f.text_field :body %><br />
 
-
+	<%= f.label :topic_tokens, "Topics" %>
+	<%= f.text_field :topic_tokens,
+		"data-pre" => @question.topics.map(&:attributes).to_json,
+		:id => "question_topic_tokens" %><br />
 
 
 	<%= f.submit "Add Question"%>
 <% end %>
 
 <script>
+$(function(){
+	$("#question_topic_tokens").tokenInput("/topics.json", {
+		crossDomain: false,
+		prePopulate: $("#question_topic_tokens").data("pre"),
+		theme: "facebook"
+	});
+});
 </script>

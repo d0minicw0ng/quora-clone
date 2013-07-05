@@ -1,7 +1,7 @@
 class Question < ActiveRecord::Base
   include PublicActivity::Common
 
-  attr_accessible :title, :body, :asker_id
+  attr_accessible :title, :body, :asker_id, :topic_tokens
 	validates_presence_of :title, :body
 
 	belongs_to :asker,
@@ -23,6 +23,11 @@ class Question < ActiveRecord::Base
 
   has_many :topics, :through => :question_topic_relationships
 
+  attr_reader :topic_tokens
+
+  def topic_tokens=(ids)
+    self.topic_ids = ids.split(",")
+  end
 
 	def self.recent_unanswered_questions
 		recent_questions = Question.where("created_at > ?", 2.weeks.ago)

@@ -10,7 +10,12 @@ class TopicsController < ApplicationController
   end
 
   def index
-    @topics = Topic.all
+    @topics = Topic.where("name ILIKE ?", "%#{params[:q]}%")
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @topics }
+    end
   end
 
   def show

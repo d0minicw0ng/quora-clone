@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require_tree .
+ *= require token-input-facebook
  */
 
 #body {
