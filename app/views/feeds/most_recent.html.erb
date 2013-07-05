@@ -6,3 +6,5 @@
 	<%= render :partial => "shared/question_loop",
 		:locals => { questions: @questions } %>
 </div>
+
+<%= will_paginate @questions %>

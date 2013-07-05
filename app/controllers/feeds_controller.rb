@@ -5,7 +5,10 @@ class FeedsController < ApplicationController
   end
 
   def most_recent
-    @questions = Question.most_recent_questions
+    @questions = Question
+      .order('created_at DESC')
+      .paginate(:page => params[:page], :per_page => 10)
+
     @topics = Topic.trending_topics[0..5]
   end
 end
