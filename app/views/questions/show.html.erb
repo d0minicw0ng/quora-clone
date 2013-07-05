@@ -25,13 +25,12 @@
 		</span>
 	<% end %>
 </ul>
-
-<button class="add_topic label label-important">Add Topic</button>
+<button class="add_topic label label-important">Add Topic</button><br />
 
 <%= form_for @qtr,
 	:html => { :class => "add_question_topic hidden" },
 	:remote => true do |f| %>
-	<%= f.hidden_field :question_id, :value => @question.id %><br />
+	<%= f.hidden_field :question_id, :value => @question.id %>
 	<%= f.text_field :topic_id, :class => "question_topic_tokens" %><br />
 	<button type="submit" class="topic_button btn btn-success">
 		Add Topic
@@ -84,12 +83,5 @@
 	toggleReplyBox();
 	autocomplete();
 	toggleTopicBox();
-
-	$(".add_question_topic").on("ajax:success", function(event, data){
-		console.log(data)
-		var template = JST["topics/tags"]({ relationship: data })
-		$("ul#tags").append(template);
-		$("#question_topic_tokens").val("");
-		$(".add_question_topic").toggleClass("hidden");
-	})
+	addTopicTag();
 </script>
