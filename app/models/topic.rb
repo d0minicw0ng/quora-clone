@@ -14,6 +14,6 @@ class Topic < ActiveRecord::Base
   has_many :questions, :through => :question_topic_relationships
 
   def self.trending_topics
-    Topic.all.sort_by! { |topic| topic.followers }.reverse!
+    Topic.all.sort_by! { |topic| - topic.followers.count }
   end
 end
