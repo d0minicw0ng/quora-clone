@@ -64,4 +64,16 @@ Quora::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+	config.paperclip_defaults = {
+		:storage => :s3,
+		:s3_credentials => {
+			:bucket => "quora-clone-development",
+			:access_key_id => "AKIAJO3RZI7T2Q5ULJNA",
+			:secret_access_key => "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"
+		},
+    :s3_host_name => "s3-us-west-1.amazonaws.com"
+	}
+
+  config.action_mailer.default_url_options = { :host => 'dominic-wong-quora-clone.herokuapp.com' }
+	config.action_mailer.delivery_method = :letter_opener
 end

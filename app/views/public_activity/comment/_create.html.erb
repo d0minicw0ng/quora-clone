@@ -1,9 +1,4 @@
-<% if activity.trackable %>
-	replied to
-  <%= link_to activity.trackable.question.title,
-		question_url(activity.trackable.question) %>
-	<%= time_ago_in_words(activity.trackable.created_at) %> ago
-<% else %>
-  replied to the question which has since been removed
-<% end %>
-
+replied to
+<%= link_to activity.trackable.question.title,
+	question_url(activity.trackable.question) %>
+<%= time_ago_in_words(activity.trackable.created_at) %> ago

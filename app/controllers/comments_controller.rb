@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
 
     @activities = PublicActivity::Activity.where("trackable_type = ?
       AND trackable_id = ?", "Comment", params[:id])
-    @activities.each { |activity| activity.destroy }
+    @activities.each(&:destroy)
 
 		render :json => @comment
 	end

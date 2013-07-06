@@ -16,7 +16,7 @@ class FollowTopicRelationshipsController < ApplicationController
 
     @activities = PublicActivity::Activity.where("trackable_type = ?
       AND trackable_id = ?", "FollowTopicRelationship", t_id)
-    @activities.each { |activity| activity.destroy }
+    @activities.each(&:destroy)
 
     render :json => @rel
   end

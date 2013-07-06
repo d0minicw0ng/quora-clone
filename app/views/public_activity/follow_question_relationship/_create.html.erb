@@ -1,9 +1,5 @@
-<% if activity.trackable %>
-	followed the question
-  <%= link_to activity.trackable.question.title,
-		question_url(activity.trackable.question) %>
-	<%= time_ago_in_words(activity.trackable.created_at) %> ago
-<% else %>
-	unfollowed a question
-<% end %>
+followed the question
+<%= link_to activity.trackable.question.title,
+	question_url(activity.trackable.question) %>
+<%= time_ago_in_words(activity.trackable.created_at) %> ago
 

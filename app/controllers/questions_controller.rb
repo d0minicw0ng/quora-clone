@@ -55,7 +55,7 @@ class QuestionsController < ApplicationController
     @question.destroy
     @activities = PublicActivity::Activity.where("trackable_type = ?
       AND trackable_id = ?", "Question", params[:id])
-    @activities.each { |activity| activity.destroy }
+    @activities.each(&:destroy)
 
     respond_to do |format|
       format.html { redirect_to root_url }

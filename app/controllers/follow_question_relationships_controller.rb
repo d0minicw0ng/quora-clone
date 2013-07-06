@@ -14,10 +14,14 @@ class FollowQuestionRelationshipsController < ApplicationController
       .where("follower_id = ? AND question_id = ?", current_user.id, q_id)
       .first
 
-    @activities = PublicActivity::Activity.where("trackable_type = ?
-      AND trackable_id = ?", "FollowQuestionRelationship", q_id)
-    @activities.each { |activity| activity.destroy }
-
+    @activities = PublicActivity::Activity.where(
+      "trackable_type = ?
+      AND trackable_id = ?
+      AND owner_id = ?",
+      "FollowQuestionRelationship",
+      q_id,
+      current_user.id)
+    @activities.each(&:destroy)
     @rel.destroy
 
     render :json => @rel

@@ -21,7 +21,7 @@ class QuestionTopicRelationshipsController < ApplicationController
       "QuestionTopicRelationship",
       params[:topic_id],
       params[:question_id])
-    @activities.each { |activity| activity.destroy }
+    @activities.each(&:destroy)
 
     @rel.destroy
 

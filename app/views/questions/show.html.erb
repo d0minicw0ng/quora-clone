@@ -2,7 +2,7 @@
 	:remote => true,
 	:html => { :class => current_user.followed_questions.include?(@question) ? "follow_question hidden" : "follow_question"} do |f| %>
 	<%= f.hidden_field :question_id, :value => @question.id %>
-	<button type="submit" class="btn btn-success">Follow Question</button>
+	<button type="submit" class="btn btn-success">Follow Question<i class="icon-star"></i></button>
 <% end %>
 
 <%= form_for @rel,
@@ -10,7 +10,7 @@
 	:html => { :class => current_user.followed_questions.include?(@question) ? "unfollow_question" : "unfollow_question hidden",
 	:method => :delete } do |f| %>
 	<%= f.hidden_field :question_id, :value => @question.id %>
-	<button type="submit" class="btn btn-success">Unfollow Question</button>
+	<button type="submit" class="btn btn-success">Unfollow Question<i class="icon-star-empty"></i></button>
 <% end %>
 
 <ul id="tags">
