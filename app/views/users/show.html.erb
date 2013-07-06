@@ -21,6 +21,13 @@
 	<img src="<%= @user.profile_picture.url(:big) %>" class="img-polaroid">
 </div>
 
+<div class="left_bar">
+	<div><%= link_to "Followers", "#" %>  <%= @user.followers.count %></div>
+	<div><%= link_to "Following", "#" %>  <%= @user.followed_users.count %></div>
+	<div><%= link_to "Topics", "#" %>  <%= @user.followed_topics.count %></div>
+	<div><%= link_to "Questions", "#" %>  <%= @user.followed_questions.count %></div>
+</div>
+
 <div id="user_profile_feed">
 	<%= render :partial => "shared/activity_feed",
 		:locals => { activities: @activities } %>

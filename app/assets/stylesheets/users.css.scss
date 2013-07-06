@@ -1,8 +1,16 @@
 #user_profile_feed {
-	padding-left:300px;
+	padding-left:50px;
+	float:left;
 }
 
 .avatar {
 	width:140px;
 	height:140px;
+	float:left;
+}
+
+.left_bar {
+	float:left;
+	position:absolute;
+	padding-top:200px;
 }
