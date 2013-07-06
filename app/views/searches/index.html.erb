@@ -1,18 +1,26 @@
-<h3>Search Results</h3>
+<h1>Search Results</h1>
 
 <% if @results.empty? %>
-	<h4>No Results</h4>
+	<h3>Sorry! Your search did not return any results :(</h3>
 <% end %>
 
 <% @results.each do |result| %>
 	<% if result.searchable_type == "Question" %>
 		<% question = Question.find(result.searchable_id) %>
-		<%= link_to question.title, question_url(question) %><br />
+		<h3>Question:</h3>
+		<%= link_to question.title, question_url(question), :class => "result_body" %>
+		<br /><br />
 	<% elsif result.searchable_type == "User" %>
 		<% user = User.find(result.searchable_id) %>
-		<%= link_to user.username, user_url(user) %><br />
+		<h3>User:</h3>
+		<%= link_to user.username, user_url(user), :class => "result_body" %>
+		<br /><br />
 	<% elsif result.searchable_type == "Topic" %>
 		<% topic = Topic.find(result.searchable_id) %>
-		<%= link_to topic.name, topic_url(topic) %><br />
+		<h3>Topic:</h3>
+		<%= link_to topic.name, topic_url(topic), :class => "result_body" %>
+		<br /><br />
 	<% end %>
 <% end %>
+
+<%= will_paginate @results %>
