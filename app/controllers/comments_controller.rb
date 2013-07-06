@@ -2,7 +2,10 @@ class CommentsController < ApplicationController
 	def create
 		@comment = current_user.answers.build(params[:comment])
 		@comment.save!
-    @comment.create_activity :create, owner: current_user
+    activity = @comment.create_activity :create, owner: current_user
+    Notification.create!(
+      { activity_id: activity.id, user_id: @comment.question.asker_id }
+    )
 
     render :json => @comment.as_json(:include => [:answerer, :votes])
 	end

@@ -1,12 +1,12 @@
-<li data-id="<%= comment.id %>">
-	<img src="<%= url %>">
+<li data-id="<%= comment.id %>" style="list-style:none">
+	<img src="<%= url %>" class="img-polaroid">
 	<span style="padding-left:30px">
 		<a href="/users/<%= comment.answerer.id %>"><%= comment.answerer.username %></a>
 	</span>
 
 	<span class='votes_count'>
 		<%= comment.votes.length + " " + owl.pluralize("vote", comment.votes.length) %>
-	</span><br />
+	</span><br /><br />
 
 	<%= comment.body %>
 	<a href="/comments/<%= comment.id %>" class="delete_comment" data-remote="true" data-method="delete">
@@ -17,14 +17,18 @@
 		<form action="/votes" data-remote="true" class="upvote" method="POST">
 			<input type="hidden" value="<%= comment.id %>" name="vote[answer_id]">
 			<input type="hidden" value="<%= voter.id %>" name="vote[voter_id]">
-			<input type="submit" value="Upvote">
+			<button type="submit" class="btn btn-link">
+				<i class="icon-thumbs-up"></i> Upvote
+			</button>
 		</form>
 
 		<form action="/votes" data-remote="true" class="downvote" method="POST">
 			<input type="hidden" name="_method" value="delete">
 			<input type="hidden" value="<%= comment.id %>" name="vote[answer_id]">
 			<input type="hidden" value="<%= voter.id %>" name="vote[voter_id]">
-			<input type="submit" value="Unvote">
+			<button type="submit" class="btn btn-link">
+				<i class="icon-thumbs-up"></i> Unvote
+			</button>
 		</form>
 	</div>
 

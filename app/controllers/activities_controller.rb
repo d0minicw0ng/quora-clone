@@ -3,8 +3,7 @@ class ActivitiesController < ApplicationController
     @activities = PublicActivity::Activity.order('created_at DESC')
     @activities = @activities.select do |activity|
       (activity.owner_type == "User" &&
-        (current_user.followed_user_ids.include?(activity.owner_id)) ||
-          activity.owner_id != current_user.id) ||
+        current_user.followed_user_ids.include?(activity.owner_id)) ||
       (activity.owner_type == "Question" &&
         current_user.followed_question_ids.include?(activity.owner_id)) ||
       (activity.trackable_type == "Topic" &&

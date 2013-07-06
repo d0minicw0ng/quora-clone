@@ -1,6 +1,7 @@
 Quora::Application.routes.draw do
   get "activities/index"
   get "careers", to: 'footers#careers', as: 'careers'
+  get "notifications", to: "notifications#index", as: "notifications"
 
   resource :feed do
     get 'most_recent'

@@ -73,13 +73,14 @@ class User < ActiveRecord::Base
 					 :foreign_key => "voter_id",
 					 :dependent => :destroy
 
-  # has_many :activities,
-  #          :class_name => "PublicActivity::Activity",
-  #          :foreign_key => :owner_id,
-  #          :dependent => :destroy
+  has_many :notifications
 
   def has_vote?(answer)
     vote = Vote.where("answer_id = ? AND voter_id = ?", answer.id, self.id)
     vote.empty? ? false : true
+  end
+
+  def unread_notifications
+    self.notifications.select { |n| !n.is_read? }
   end
 end

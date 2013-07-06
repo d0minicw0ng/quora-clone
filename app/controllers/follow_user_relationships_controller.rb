@@ -1,8 +1,9 @@
 class FollowUserRelationshipsController < ApplicationController
   def create
-    @rel = FollowUserRelationship.new(params[:follow_user_relationship])
-    @rel.follower_id = current_user.id
-    @rel.save!
+    @rel = FollowUserRelationship.create!(
+      params[:follow_user_relationship].merge({ follower_id: current_user.id }))
+    activity = @rel.create_activity :create, owner: current_user
+    Notification.create!({ activity_id: activity.id, user_id: activity.trackable_id })
 
     render :json => @rel
   end
