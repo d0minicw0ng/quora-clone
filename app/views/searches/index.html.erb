@@ -1,0 +1,18 @@
+<h3>Search Results</h3>
+
+<% if @results.empty? %>
+	<h4>No Results</h4>
+<% end %>
+
+<% @results.each do |result| %>
+	<% if result.searchable_type == "Question" %>
+		<% question = Question.find(result.searchable_id) %>
+		<%= link_to question.title, question_url(question) %><br />
+	<% elsif result.searchable_type == "User" %>
+		<% user = User.find(result.searchable_id) %>
+		<%= link_to user.username, user_url(user) %><br />
+	<% elsif result.searchable_type == "Topic" %>
+		<% topic = Topic.find(result.searchable_id) %>
+		<%= link_to topic.name, topic_url(topic) %><br />
+	<% end %>
+<% end %>

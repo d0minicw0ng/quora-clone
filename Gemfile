@@ -54,6 +54,8 @@ gem 'pg'
 # Feed
 gem 'public_activity'
 
-#paginate
+# paginate
 gem 'will_paginate'
 
+# search
+gem 'pg_search'

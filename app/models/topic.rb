@@ -1,5 +1,7 @@
 class Topic < ActiveRecord::Base
   include PublicActivity::Common
+  include PgSearch
+  multisearchable :against => [:name]
 
   attr_accessible :name
 

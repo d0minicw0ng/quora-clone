@@ -29,6 +29,8 @@ Quora::Application.routes.draw do
     end
   end
 
+  resources :searches, :only => [:index]
+
 	resource :votes, :only => [:create, :destroy]
 
   root :to => "activities#index"

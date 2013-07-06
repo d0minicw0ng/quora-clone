@@ -8,11 +8,15 @@
 	    <!-- </a> -->
 	    <ul class="nav">
 				<li>
+						<%#= form_tag questions_path, method: :get do %>
+								<%#= text_field_tag :query, params[:query] %>
+								<%#= submit_tag "Search", name: nil %>
+						<%# end %>
 					<form class="navbar-search pull-left"
-						style="padding:0 100px">
+						style="padding:0 100px" action="/searches">
 					  <input type="text"
 							class="search-query"
-							placeholder="Search">
+							placeholder="Search" name="query">
 						<button type="submit" class="btn btn-info">
 							Go!
 						</button>

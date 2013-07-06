@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => :username
   # Include default devise modules. Others available are:
   # :token_authenticatable,
   # :lockable, :timeoutable and :omniauthable

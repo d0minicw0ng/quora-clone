@@ -1,5 +1,7 @@
 class Question < ActiveRecord::Base
   include PublicActivity::Common
+  include PgSearch
+  multisearchable :against => [:title, :body]
 
   attr_accessible :title, :body, :asker_id, :topic_tokens
   attr_reader :topic_tokens
