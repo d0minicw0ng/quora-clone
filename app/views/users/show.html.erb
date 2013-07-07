@@ -1,39 +1,54 @@
-<% if current_user.id != @user.id %>
-	<%= form_for @rel,
-		:remote => true,
-		:html => { :class => current_user.followed_users.include?(@user) ? "follow_user hidden" : "follow_user"} do |f| %>
-		<%= f.hidden_field :followed_user_id, :value => @user.id %>
-		<button type="submit" class="btn btn-success">Follow User<i class="icon-ok"></i></button>
-	<% end %>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<% if current_user.id != @user.id %>
+			<%= form_for @rel,
+				:remote => true,
+				:html => { :class => current_user.followed_users.include?(@user) ? "follow_user hidden" : "follow_user"} do |f| %>
+				<%= f.hidden_field :followed_user_id, :value => @user.id %>
+				<button type="submit" class="btn btn-success">Follow User<i class="icon-ok"></i></button>
+			<% end %>
 
-	<%= form_for @rel,
-		:remote => true,
-		:html => { :class => current_user.followed_users.include?(@user) ? "unfollow_user" : "unfollow_user hidden" ,
-		:method => :delete } do |f| %>
-		<%= f.hidden_field :followed_user_id, :value => @user.id %>
-		<button type="submit" class="btn btn-success">Unfollow User<i class="icon-ok"></i></button>
-	<% end %>
-<% end %>
+			<%= form_for @rel,
+				:remote => true,
+				:html => { :class => current_user.followed_users.include?(@user) ? "unfollow_user" : "unfollow_user hidden" ,
+				:method => :delete } do |f| %>
+				<%= f.hidden_field :followed_user_id, :value => @user.id %>
+				<button type="submit" class="btn btn-success">Unfollow User<i class="icon-ok"></i></button>
+			<% end %>
+		<% end %>
 
-<h3><%= @user.username %></h3>
+		<h3><%= link_to @user.username, user_url(@user) %></h3>
 
-<div class="avatar">
-	<img src="<%= @user.profile_picture.url(:big) %>" class="img-polaroid">
+		<div class="span2">
+			<div class="avatar">
+				<img src="<%= @user.profile_picture.url(:big) %>" class="img-polaroid">
+			</div>
+
+			<div class="left_bar">
+				<div><%= link_to "Followers", "#", :id => "user_followers" %> <%= @user.followers.count %></div>
+				<div><%= link_to "Following", "#", :id => "user_following" %> <%= @user.followed_users.count %></div>
+				<div><%= link_to "Topics", "#", :id => "user_topics" %> <%= @user.followed_topics.count %></div>
+				<div><%= link_to "Questions", "#", :id => "user_questions" %> <%= @user.questions.count %></div>
+				<div><%= link_to "Answers", "#", :id => "user_answers" %> <%= @user.answers.count %></div>
+			</div>
+		</div>
+		<div class="span8">
+			<div id="user_profile_content">
+				<%= render :partial => "shared/activity_feed",
+					:locals => { activities: @activities } %>
+			</div>
+		</div>
+	</div>
 </div>
-
-<div class="left_bar">
-	<div><%= link_to "Followers", "#" %>  <%= @user.followers.count %></div>
-	<div><%= link_to "Following", "#" %>  <%= @user.followed_users.count %></div>
-	<div><%= link_to "Topics", "#" %>  <%= @user.followed_topics.count %></div>
-	<div><%= link_to "Questions", "#" %>  <%= @user.followed_questions.count %></div>
-	<div><%= link_to "Answers", "#" %>  <%= @user.answers.count %></div>
-</div>
-
-<div id="user_profile_feed">
-	<%= render :partial => "shared/activity_feed",
-		:locals => { activities: @activities } %>
-</div>
+<script type="application/json" id="user_object">
+	<%= @user.as_json(:include => [:followers, :followed_users, :followed_topics, :questions, answers: { :include => :question }]).to_json.html_safe %>
+</script>
 
 <script>
 	followUser();
+	showUserFollowers();
+	showUserFollowing();
+	showUserTopics();
+	showUserQuestions();
+	showUserAnswers();
 </script>

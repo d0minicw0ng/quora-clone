@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #personal_cv {
+	position:absolute;
 	padding-left:200px;
-	padding-top:150px;
+	margin-top:50px;
+}
+
+.footer {
+	height:50px;
+	margin-top:200px;
 }

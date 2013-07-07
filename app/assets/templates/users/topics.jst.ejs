@@ -1,0 +1,8 @@
+<% var count = user.followed_topics.length %>
+<div>Following <%= count %> <%= owl.pluralize("Topic", count) %></div>
+<hr>
+<% for(var i=0; i < user.followed_topics.length; i++){ %>
+	<a href="/topics/<%= user.followed_topics[i].id %>">
+		<%= user.followed_topics[i].name %>
+	</a><br /><br />
+<% }; %>

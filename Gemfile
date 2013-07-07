@@ -33,6 +33,8 @@ gem 'jquery-rails'
 
 # To use debugger
 gem 'debugger'
+
+# backbone
 gem 'ejs'
 
 gem 'better_errors'

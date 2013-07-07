@@ -15,6 +15,5 @@
 //= require jquery.tokeninput
 //= require pluralize
 //= require twitter/bootstrap
-//= require_tree ../templates
 //= require_tree .
-
+//= require_tree ../templates

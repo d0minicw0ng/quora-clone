@@ -5,5 +5,7 @@ class UsersController < ApplicationController
     @activities = PublicActivity::Activity
       .where("owner_id = ? AND owner_type = ?", @user.id, "User")
       .order("created_at DESC")
+
+    render :show => @user
 	end
 end

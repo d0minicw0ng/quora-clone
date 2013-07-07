@@ -1,0 +1,8 @@
+<% var count = user.answers.length %>
+<div>Answered <%= count %> <%= owl.pluralize("Question", count) %></div>
+<hr>
+<% for(var i=0; i < user.answers.length; i++){ %>
+	<a href="/questions/<%= user.answers[i].question_id %>">
+		<%= user.answers[i].question.title %>
+	</a><br /><br />
+<% }; %>
