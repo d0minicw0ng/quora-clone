@@ -2,20 +2,22 @@
 
 <% @notifications.each do |notification| %>
 	<% act = notification.activity %>
-	<% if act.owner_type == "User" && act.trackable_type == "Comment" %>
-		<span>
-			<%= link_to act.owner.username, user_url(act.owner) %> answered your question
-			<%= link_to act.trackable.question.title, question_url(act.trackable.question) %>
-		</span>
-	<% elsif act.owner_type == "User" && act.trackable_type == "FollowUserRelationship" %>
-		<span>
-			<%= link_to act.owner.username, user_url(act.owner) %> is now following you.
-		</span>
+	<% if act.owner_type == "User" && act.owner_id != current_user.id%>
+		<% if act.trackable_type == "Comment" %>
+			<span>
+				<%= link_to act.owner.username, user_url(act.owner) %> answered your question
+				<%= link_to act.trackable.question.title, question_url(act.trackable.question) %>
+			</span>
+		<% elsif act.trackable_type == "FollowUserRelationship" %>
+			<span>
+				<%= link_to act.owner.username, user_url(act.owner) %> is now following you.
+			</span>
+		<% end %>
+		<span><%= act.created_at.strftime("%b %d, %Y") %></span>
+		<% unless notification.is_read? %>
+			<span class="label label-important">New!</span>
+			<% notification.mark_as_read %>
+		<% end %>
+		<hr width="80%">
 	<% end %>
-	<span><%= act.created_at.strftime("%b %d, %Y") %></span>
-	<% unless notification.is_read? %>
-		<span class="label label-important">New!</span>
-		<% notification.mark_as_read %>
-	<% end %>
-	<hr width="80%">
 <% end %>
