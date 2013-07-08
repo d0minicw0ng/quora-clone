@@ -3,6 +3,10 @@ Quora::Application.routes.draw do
   get "careers", to: 'footers#careers', as: 'careers'
   get "notifications", to: "notifications#index", as: "notifications"
 
+  get "inbox", to: "conversations#index", as: "inbox"
+  resources :conversations, :only => [:create, :show]
+  resources :messages, :only => [:create]
+
   resource :feed do
     get 'most_recent'
     get 'top_questions'

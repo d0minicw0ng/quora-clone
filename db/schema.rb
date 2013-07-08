@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130706181553) do
+ActiveRecord::Schema.define(:version => 20130708010354) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -39,6 +39,12 @@ ActiveRecord::Schema.define(:version => 20130706181553) do
     t.datetime "updated_at",        :null => false
   end
 
+  create_table "conversations", :force => true do |t|
+    t.boolean  "is_read",    :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "follow_question_relationships", :force => true do |t|
     t.integer  "follower_id", :null => false
     t.integer  "question_id", :null => false
@@ -58,6 +64,15 @@ ActiveRecord::Schema.define(:version => 20130706181553) do
     t.integer  "follower_id",      :null => false
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+  end
+
+  create_table "messages", :force => true do |t|
+    t.text     "content",         :null => false
+    t.integer  "sender_id",       :null => false
+    t.integer  "receiver_id",     :null => false
+    t.integer  "conversation_id", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "notifications", :force => true do |t|

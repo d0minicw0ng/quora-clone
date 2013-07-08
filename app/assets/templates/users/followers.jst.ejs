@@ -1,8 +1,10 @@
 <% var count = user.followers.length %>
 <div><%= count %> <%= owl.pluralize("Follower", count) %></div>
 <hr>
-<% for(var i=0; i < user.followers.length; i++){ %>
-	<a href="/users/<%= user.followers[i].id %>">
-		<%= user.followers[i].username %>
-	</a><br /><br />
-<% }; %>
+<ul class="thumbnails">
+	<% for(var i=0; i < user.followers.length; i++){ %>
+		<a href="/users/<%= user.followers[i].id %>">
+			<%= user.followers[i].username %>
+		</a><br /><br />
+	<% }; %>
+</user>

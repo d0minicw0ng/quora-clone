@@ -83,4 +83,21 @@ class User < ActiveRecord::Base
   def unread_notifications
     self.notifications.select { |n| !n.is_read? }
   end
+
+  has_many :sent_messages,
+           :class_name => "Message",
+           :foreign_key => :sender_id
+
+  has_many :received_messages,
+           :class_name => "Message",
+           :foreign_key => :receiver_id
+
+  def conversations
+    messages = Message.where("sender_id = ? OR receiver_id = ?",
+      self.id, self.id).order("created_at DESC")
+
+    conversations = []
+    messages.each { |message| conversations << message.conversation }
+    conversations
+  end
 end

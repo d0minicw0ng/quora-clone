@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.tokeninput
 //= require pluralize
+//= require jquery.bpopup.min
 //= require twitter/bootstrap
 //= require_tree .
 //= require_tree ../templates

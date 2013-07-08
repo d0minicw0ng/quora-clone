@@ -1,0 +1,5 @@
+<h3>Conversation Between
+	<%= current_user.username %>
+	And
+	<%= @conversation.sender == current_user ? @conversation.receiver.username : @conversation.sender.username %>
+</h3>

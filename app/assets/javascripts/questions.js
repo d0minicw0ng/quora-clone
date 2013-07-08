@@ -86,7 +86,6 @@ var toggleTopicBox = function(){
 
 var addTopicTag = function(){
 	$(".add_question_topic").on("ajax:success", function(event, data){
-		console.log(data)
 		var template = JST["topics/tags"]({ relationship: data })
 		$("ul#tags").append(template);
 		$("#question_topic_tokens").val("");
