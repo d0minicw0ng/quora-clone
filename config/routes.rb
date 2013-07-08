@@ -39,5 +39,5 @@ Quora::Application.routes.draw do
 
 	resource :votes, :only => [:create, :destroy]
 
-  root :to => "activities#index"
+  root :to => "feeds#most_recent"
 end

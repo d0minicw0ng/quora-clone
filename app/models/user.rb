@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
   # :token_authenticatable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable
+         :recoverable, :rememberable, :trackable, :validatable
+         # :confirmable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email,
@@ -105,5 +105,11 @@ class User < ActiveRecord::Base
     conversations = []
     messages.each { |message| conversations << message.conversation }
     conversations.uniq! || []
+  end
+
+  after_create :auto_confirm
+
+  def auto_confirm
+    self[:confirmed_at] ||= Time.now
   end
 end
