@@ -43,7 +43,7 @@
 <button class="get_comment_area btn btn-link">Leave a Comment</button>
 
 <hr width="80%">
-<p><span id="answers_count"><%= pluralize(@answers.count, 'Answer')%></span></p>
+<p><span id="answers_count"><%= pluralize(@question.answers.count, 'Answer')%></span></p>
 <hr width="80%">
 
 <div class="comment_area hidden">
@@ -59,8 +59,8 @@
 </div>
 
 <ul id="answers">
-	<% @answers.each do |answer| %>
-		<%= render :partial => "comments/nested_answer",
+	<% @question.answers.each do |answer| %>
+		<%= render :partial => "comments/answer",
 			:locals => { :answer => answer, :comment => @comment, :vote => @vote }%>
 	<% end %>
 </ul>

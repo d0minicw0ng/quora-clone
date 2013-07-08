@@ -40,17 +40,25 @@
       	</li>
 
 				<li class="dropdown">
+					<% number = current_user.unread_notifications.count %>
+					<% unread = current_user.unread_conversations.count %>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Home<b class="caret"></b>
+						Home
+						<% if (number + unread) > 0 %>
+							<span class="badge badge-important"><%= number + unread  %></span>
+						<% else %>
+							<b class="caret"></b>
+						<% end %>
 					</a>
 					<ul class="dropdown-menu">
 						<li>
-							<% number = current_user.unread_notifications.count %>
 							<%= link_to raw("Notifications
 								<span class='badge badge-important'>#{number if number > 0}</span>"),
 								notifications_url%>
 						</li>
-						<li><%= link_to "Inbox", inbox_url %></li>
+						<li>
+							<%= link_to raw("Inbox <span class='badge badge-important'>#{unread if unread > 0}</span>"), inbox_url %>
+						</li>
 					</ul>
 				</li>
 

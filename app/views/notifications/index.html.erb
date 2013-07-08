@@ -14,10 +14,6 @@
 			</span>
 		<% end %>
 		<span><%= act.created_at.strftime("%b %d, %Y") %></span>
-		<% unless notification.is_read? %>
-			<span class="label label-important">New!</span>
-			<% notification.mark_as_read %>
-		<% end %>
 		<hr width="80%">
 	<% end %>
 <% end %>

@@ -8,6 +8,11 @@ class MessagesController < ApplicationController
     end
 
     @message.save!
-    render :json => @message.as_json(:include => :sender)
+    @message.conversation.mark_as_unread
+
+    respond_to do |format|
+      format.json { render :json => @message.as_json(:include => :sender) }
+      format.html { redirect_to conversation_url(@message.conversation) }
+    end
   end
 end

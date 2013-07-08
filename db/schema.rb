@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130708010354) do
+ActiveRecord::Schema.define(:version => 20130708170855) do
 
   create_table "activities", :force => true do |t|
     t.integer  "trackable_id"
@@ -31,12 +31,11 @@ ActiveRecord::Schema.define(:version => 20130708010354) do
   add_index "activities", ["trackable_id", "trackable_type"], :name => "index_activities_on_trackable_id_and_trackable_type"
 
   create_table "comments", :force => true do |t|
-    t.text     "body",              :null => false
-    t.integer  "question_id",       :null => false
-    t.integer  "parent_comment_id"
-    t.integer  "answerer_id",       :null => false
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.text     "body",        :null => false
+    t.integer  "question_id", :null => false
+    t.integer  "answerer_id", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "conversations", :force => true do |t|

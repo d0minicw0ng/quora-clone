@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-				 :confirmable
+         :confirmable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email,
@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
 											:big => '200x200>',
 											:small => '50x50#'
 									  }
+
+  validates_uniqueness_of :username
 
 	has_many :questions,
 			     :class_name => "Question",
@@ -84,6 +86,10 @@ class User < ActiveRecord::Base
     self.notifications.select { |n| !n.is_read? }
   end
 
+  def unread_conversations
+    self.conversations.select { |c| !c.is_read? }
+  end
+
   has_many :sent_messages,
            :class_name => "Message",
            :foreign_key => :sender_id
@@ -98,6 +104,6 @@ class User < ActiveRecord::Base
 
     conversations = []
     messages.each { |message| conversations << message.conversation }
-    conversations
+    conversations.uniq!
   end
 end

@@ -43,7 +43,6 @@ class QuestionsController < ApplicationController
 
 	def show
 		@question = Question.includes(:answers, :topics).find(params[:id])
-		@answers = Comment.root_answers(@question.answers)
 		@comment = Comment.new
 		@vote = Vote.new
     @rel = FollowQuestionRelationship.new

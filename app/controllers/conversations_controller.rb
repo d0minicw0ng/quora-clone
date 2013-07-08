@@ -8,6 +8,6 @@ class ConversationsController < ApplicationController
       .includes(:messages).find(params[:id])
     @conversation.messages.sort_by { |message| message.created_at }.reverse!
     @message = Message.new
-    @conversation
+    @conversation.mark_as_read
   end
 end

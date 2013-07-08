@@ -12,7 +12,6 @@ class Notification < ActiveRecord::Base
              :foreign_key => :activity_id
 
   def mark_as_read
-    self.is_read = true
-    self.save!
+    self.update_attributes!(is_read: true)
   end
 end

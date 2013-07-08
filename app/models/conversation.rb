@@ -5,7 +5,11 @@ class Conversation < ActiveRecord::Base
   has_many :messages
 
   def mark_as_read
-    self.update_attributes(:is_read => true)
+    self.update_attributes!(is_read: true)
+  end
+
+  def mark_as_unread
+    self.update_attributes!(is_read: false)
   end
 
   def last_message

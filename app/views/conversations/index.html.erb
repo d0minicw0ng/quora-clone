@@ -3,25 +3,25 @@
 <br /><br /><br /><br /><br />
 
 <% unless @conversations.empty? %>
-<table>
-  <thead>
-    <tr>
-      <th class="span2"></th>
-      <th class="span2"></th>
-      <th class="span2"></th>
-    </tr>
-	</thead>
-  <tbody>
-  	<% @conversations.each do |conversation| %>
-			<% user = (current_user.id == conversation.sender) ? conversation.receiver : conversation.sender %>
-    	<tr>
-      	<td><strong>From: <%= link_to user.username, user_url(user) %></strong></td>
-      	<td><strong><%= link_to conversation.last_message.content, conversation_url(conversation) %></strong></td>
-      	<td><strong><%= time_ago_in_words(conversation.last_message.created_at) %> ago</strong></td>
-    	</tr>
-  	<% end %>
-	</tbody>
-</table>
+	<table>
+	  <thead>
+	    <tr>
+	      <th class="span2"></th>
+	      <th class="span2"></th>
+	      <th class="span2"></th>
+	    </tr>
+		</thead>
+	  <tbody>
+	  	<% @conversations.each do |conversation| %>
+				<% user = (current_user == conversation.sender) ? conversation.receiver : conversation.sender %>
+	    	<tr>
+	      	<td><strong>With: <%= link_to user.username, user_url(user) %></strong></td>
+	      	<td><strong><%= link_to conversation.last_message.content, conversation_url(conversation) %></strong></td>
+	      	<td><strong><%= time_ago_in_words(conversation.last_message.created_at) %> ago</strong></td>
+	    	</tr>
+	  	<% end %>
+		</tbody>
+	</table>
 <% end %>
 
 <div class="new_msg_form span5 well">
