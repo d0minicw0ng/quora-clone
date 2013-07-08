@@ -36,10 +36,12 @@
 	<%= f.submit "Create Question" %>
 <% end %>
 
+<% unless @topic.questions.empty? %>
 <h3>Questions</h3>
-<% @topic.questions.each do |question| %>
-	<%= link_to question.title, question_url(question) %>
-	<hr width="80%">
+	<% @topic.questions.each do |question| %>
+		<%= link_to question.title, question_url(question) %>
+		<hr width="80%">
+	<% end %>
 <% end %>
 
 <script>

@@ -1,6 +1,16 @@
-Hi! This is Dominic Wong's final project at App Academy.
-My mission is to clone Quora in less than 2 weeks. This
-web application looks just like Quora, so if you are a regular
-visitor to Quora, I am sure you already know how to navigate
-around. Otherwise, please take some time to read the user manual
-below. (TO BE CONTINUED)
+Hi! This is Dominic Wong’s final project at App Academy.
+My mission is to clone Quora in a week.
+This web application looks just like Quora,
+so if you are a regular visitor to Quora,
+I am sure you already know how to navigate around. :)
+
+Features:
+
+Questions and Answers
+Upvote and Downvote
+Follow and Unfollow (User, Question, Topic)
+Notifications
+Feeds
+Messaging
+User profiles
+Full-site search (User, Question, Topic)
