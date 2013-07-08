@@ -1,5 +1,33 @@
 <h3>Conversation Between
 	<%= current_user.username %>
 	And
-	<%= @conversation.sender == current_user ? @conversation.receiver.username : @conversation.sender.username %>
+	<% counterpart = @conversation.sender == current_user ? @conversation.receiver : @conversation.sender %>
+	<%= counterpart.username %>
+
 </h3>
+
+<div class="convo_box">
+	<% @conversation.messages.each do |message| %>
+		<div><strong><%= message.sender.username %></strong>:
+			<%= message.content%> --<%= time_ago_in_words(message.created_at) %> ago</div>
+			<hr width="50%">
+	<% end %>
+</div>
+
+<%= form_for @message, html: { class: "new_message" }, remote: true do |f| %>
+	<%= f.hidden_field :sender_id, value: current_user.id %>
+	<%= f.hidden_field :receiver_id, value: counterpart.id %>
+	<%= f.hidden_field :conversation_id, value: @conversation.id %>
+	<%= f.text_area :content, rows: 4, class: "msg_box" %><br />
+	<%= f.submit "Send", class: "btn btn-success" %>
+<% end %>
+
+<script>
+	$(".new_message").on("ajax:success", function(event, data){
+		var template = JST["messages/show"]({
+			message: data
+		})
+		$(".convo_box").append(template);
+		$(".msg_box").val("");
+	})
+</script>

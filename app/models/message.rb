@@ -1,9 +1,6 @@
 class Message < ActiveRecord::Base
   attr_accessible :content, :sender_id, :receiver_id, :conversation_id
 
-  validates_uniqueness_of [:sender_id, :receiver_id],
-    :scope => :conversation_id
-
   validates_presence_of :content, :sender_id, :receiver_id, :conversation_id
 
   belongs_to :conversation

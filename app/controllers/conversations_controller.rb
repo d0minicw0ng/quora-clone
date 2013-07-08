@@ -4,6 +4,10 @@ class ConversationsController < ApplicationController
   end
 
   def show
-    @conversation = Conversation.find(params[:id])
+    @conversation = Conversation
+      .includes(:messages).find(params[:id])
+    @conversation.messages.sort_by { |message| message.created_at }.reverse!
+    @message = Message.new
+    @conversation
   end
 end
