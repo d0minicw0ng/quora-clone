@@ -1,6 +1,7 @@
 Quora::Application.routes.draw do
   get "activities/index"
   get "careers", to: 'footers#careers', as: 'careers'
+  get "about_quora_clone", to: 'footers#about_quora_clone', as: 'about_quora_clone'
   get "notifications", to: "notifications#index", as: "notifications"
 
   get "inbox", to: "conversations#index", as: "inbox"
