@@ -2,27 +2,27 @@
 <div class="new_message"><button class="popup_msg_form btn btn-success">Compose New Message</button></div>
 <br /><br /><br /><br /><br />
 
-<% unless @conversations.empty? %>
-	<table>
-	  <thead>
-	    <tr>
-	      <th class="span2"></th>
-	      <th class="span2"></th>
-	      <th class="span2"></th>
-	    </tr>
-		</thead>
-	  <tbody>
-	  	<% @conversations.each do |conversation| %>
-				<% user = (current_user == conversation.sender) ? conversation.receiver : conversation.sender %>
-	    	<tr>
-	      	<td><strong>With: <%= link_to user.username, user_url(user) %></strong></td>
-	      	<td><strong><%= link_to conversation.last_message.content, conversation_url(conversation) %></strong></td>
-	      	<td><strong><%= time_ago_in_words(conversation.last_message.created_at) %> ago</strong></td>
-	    	</tr>
-	  	<% end %>
-		</tbody>
-	</table>
-<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th class="span2"></th>
+      <th class="span2"></th>
+      <th class="span2"></th>
+    </tr>
+	</thead>
+  <tbody>
+  	<% @conversations.each do |conversation| %>
+			<% user = (current_user == conversation.sender) ? conversation.receiver : conversation.sender %>
+    	<tr>
+      	<td><strong>With: <%= link_to user.username, user_url(user) %></strong></td>
+      	<td><strong><%= link_to conversation.last_message.content, conversation_url(conversation) %></strong></td>
+      	<td><strong><%= time_ago_in_words(conversation.last_message.created_at) %> ago</strong></td>
+    	</tr>
+  	<% end %>
+	</tbody>
+</table>
+
 
 <div class="new_msg_form span5 well">
 	<%= form_for Message.new do |f| %>

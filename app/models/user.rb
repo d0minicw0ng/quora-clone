@@ -104,7 +104,7 @@ class User < ActiveRecord::Base
 
     conversations = []
     messages.each { |message| conversations << message.conversation }
-    conversations.uniq! || []
+    conversations
   end
 
   after_create :auto_confirm
