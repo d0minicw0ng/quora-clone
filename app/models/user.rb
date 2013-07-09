@@ -87,7 +87,9 @@ class User < ActiveRecord::Base
   end
 
   def unread_conversations
-    self.conversations.select { |c| !c.is_read? }
+    self.conversations.select do |c|
+      !c.is_read? && c.last_message.sender != self
+    end
   end
 
   has_many :sent_messages,
