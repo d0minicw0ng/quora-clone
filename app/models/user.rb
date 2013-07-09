@@ -106,6 +106,8 @@ class User < ActiveRecord::Base
     messages.each { |message| conversations << message.conversation }
     messages.each do |message|
       conversations << message.conversation unless conversations.include?(message.conversation))
+    end
+
     conversations
   end
 
