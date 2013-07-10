@@ -10,9 +10,6 @@
 	<% @conversation.messages.each do |message| %>
 		<div><strong><%= message.sender.username %></strong>:
 			<%= message.content%> --<%= time_ago_in_words(message.created_at) %> ago
-			<% if !@conversation.is_read %>
-				<span class="label label-important">New!</span>
-			<% end %>
 		</div>
 			<hr width="50%">
 	<% end %>
@@ -34,6 +31,7 @@
 	$(function(){
 		Faye.Transport.WebSocket.isUsable = function($, _, c) { c(false) };
 		var client = new Faye.Client('http://dominic-wong-faye-server.herokuapp.com/faye', { timeout: 120, retry: 5 });
+		client.setHeader('Access-Control-Allow-Origin', '*');
 
 		var private_subscription = client.subscribe('/conversations/private/<%= @conversation.id %>', function(data){
 			var name = null;
