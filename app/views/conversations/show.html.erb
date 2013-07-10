@@ -28,7 +28,7 @@
 
 <script type="text/javascript">
 	$(function(){
-		var client = new Faye.Client('http://localhost:9292/faye');
+		var client = new Faye.Client('http://dominic-wong-faye-server.herokuapp.com/faye');
 
 		var private_subscription = client.subscribe('/conversations/private/<%= @conversation.id %>', function(data){
 			var name = null;
