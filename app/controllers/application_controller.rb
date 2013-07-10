@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   helper_method :broadcast_server
 
   def broadcast_message(channel, data)
-    message = { :ext => {:auth_token => FAYE_TOKEN}, :channel => channel, :data => data}
+    message = { :ext => {:auth_token => "anything"}, :channel => channel, :data => data}
     uri = URI.parse(broadcast_server)
     Net::HTTP.post_form(uri, :message => message.to_json)
   end
