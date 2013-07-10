@@ -10,7 +10,7 @@
 	<% @conversation.messages.each do |message| %>
 		<div><strong><%= message.sender.username %></strong>:
 			<%= message.content%> --<%= time_ago_in_words(message.created_at) %> ago
-			<% unless conversation.is_read? %>
+			<% unless @conversation.is_read? %>
 				<span class="label label-important">New!</span>
 			<% end %>
 		</div>
