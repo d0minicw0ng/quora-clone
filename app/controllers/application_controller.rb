@@ -7,9 +7,9 @@ class ApplicationController < ActionController::Base
 
   def broadcast_server
     if request.port.to_i != 80
-      "http://my-faye-server.herokuapp.com:80/faye"
+      "http://dominic-wong-faye-server.herokuapp.com:80/faye"
     else
-      "http://my-faye-server.herokuapp.com/faye"
+      "http://dominic-wong-faye-server.herokuapp.com/faye"
     end
   end
   helper_method :broadcast_server
