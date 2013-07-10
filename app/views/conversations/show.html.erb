@@ -29,7 +29,7 @@
 <script type="text/javascript">
 	$(function(){
 		var client = new Faye.Client('http://dominic-wong-faye-server.herokuapp.com/faye');
-		Faye.Transport.WebSocket.isUsable = function(_,c) { c(false) }
+		client.disable('websocket');
 
 		var private_subscription = client.subscribe('/conversations/private/<%= @conversation.id %>', function(data){
 			var name = null;
