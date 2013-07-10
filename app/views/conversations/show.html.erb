@@ -32,7 +32,7 @@
 	  var broadcast_server = "<%= broadcast_server %>"
 		Faye.Transport.WebSocket.isUsable = function($, _, c) { c(false) };
 		// var client = new Faye.Client('http://dominic-wong-faye-server.herokuapp.com/faye', { timeout: 120, retry: 5 });
-		var client = new Faye.Client(broadcast_server);
+		var client = new Faye.Client("http://dominic-wong-faye-server.herokuapp.com/faye");
 		client.setHeader('Access-Control-Allow-Origin', '*');
 		client.setHeader('Access-Control-Allow-Headers', '*');
 		client.connect();
