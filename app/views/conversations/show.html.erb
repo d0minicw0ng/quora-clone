@@ -9,7 +9,11 @@
 <div class="convo_box">
 	<% @conversation.messages.each do |message| %>
 		<div><strong><%= message.sender.username %></strong>:
-			<%= message.content%> --<%= time_ago_in_words(message.created_at) %> ago</div>
+			<%= message.content%> --<%= time_ago_in_words(message.created_at) %> ago
+			<% unless conversation.is_read? %>
+				<span class="label label-important">New!</span>
+			<% end %>
+		</div>
 			<hr width="50%">
 	<% end %>
 </div>
@@ -28,7 +32,7 @@
 
 <script type="text/javascript">
 	$(function(){
-		var client = new Faye.Client('http://dominic-wong-faye-server.herokuapp.com/faye', timeout: 120, retry: 5 );
+		var client = new Faye.Client('http://dominic-wong-faye-server.herokuapp.com/faye', { timeout: 120, retry: 5 });
 		client.disable('websocket');
 		Faye.Transport.WebSocket.isUsable = function(_,c) { c(false) }
 
