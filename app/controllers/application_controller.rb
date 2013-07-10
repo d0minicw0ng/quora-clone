@@ -6,11 +6,11 @@ class ApplicationController < ActionController::Base
   include PublicActivity::StoreController
 
   def broadcast_server
-      if request.port.to_i != 80
-        "http://my-faye-server.herokuapp.com:80/faye"
-      else
-        "http://my-faye-server.herokuapp.com/faye"
-      end
+    if request.port.to_i != 80
+      "http://my-faye-server.herokuapp.com:80/faye"
+    else
+      "http://my-faye-server.herokuapp.com/faye"
+    end
   end
   helper_method :broadcast_server
 
