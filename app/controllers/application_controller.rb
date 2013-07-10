@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  # before_filter :authenticate_user!
+  before_filter :authenticate_user!
   helper_method :broadcast_server
 
   include PublicActivity::StoreController
@@ -12,10 +12,9 @@ class ApplicationController < ActionController::Base
       "http://dominic-wong-faye-server.herokuapp.com/faye"
     end
   end
-  helper_method :broadcast_server
 
   def broadcast_message(channel, data)
-    message = { :ext => {:auth_token => FAYE_TOKEN}, :channel => channel, :data => data}
+    message = { :ext => {:auth_token => "anything"}, :channel => channel, :data => data}
     uri = URI.parse(broadcast_server)
     Net::HTTP.post_form(uri, :message => message.to_json)
   end
