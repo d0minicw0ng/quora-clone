@@ -29,12 +29,13 @@
 
 <script type="text/javascript">
 	$(function(){
-	  var broadcast_server = "<%= broadcast_server %>"
+	  // var broadcast_server = "<%#= broadcast_server %>"
 		Faye.Transport.WebSocket.isUsable = function($, _, c) { c(false) };
-		// var client = new Faye.Client('http://dominic-wong-faye-server.herokuapp.com/faye', { timeout: 120, retry: 5 });
-		var client = new Faye.Client(broadcast_server);
-		client.setHeader('Access-Control-Allow-Origin', 'http://dominic-wong-quora-clone.herokuapp.com');
-		client.setHeader('Access-Control-Allow-Headers', '*');
+		var client = new Faye.Client('http://dominic-wong-faye-server.herokuapp.com/faye');
+		// var client = new Faye.Client(broadcast_server);
+
+		// headers["Acess-Control-Allow-Origin"] = "*";
+		// client.setHeader('Access-Control-Allow-Headers', '*');
 		client.connect();
 
 		var private_subscription = client.subscribe('/conversations/private/<%= @conversation.id %>', function(data){
