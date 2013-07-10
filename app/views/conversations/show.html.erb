@@ -23,5 +23,31 @@
 <% end %>
 
 <script>
-	addMessage();
+	// addMessage();
+</script>
+
+<script type="text/javascript">
+	$(function(){
+		var client = new Faye.Client('http://localhost:9292/faye');
+
+		var private_subscription = client.subscribe('/conversations/private/<%= @conversation.id %>', function(data){
+			var name = null;
+			if ("<%= current_user.id %>" === data["message"].sender_id){
+				name = "<%= current_user.username %>"
+			} else {
+				name = "<%= counterpart.username %>"
+			}
+			var template = JST["messages/show"]({
+				message: data["message"],
+				sender_name: name
+			})
+			$(".convo_box").append(template);
+			$(".msg_box").val("");
+		})
+
+		$(".new_message").submit(function(){
+			client.publish('/conversations/private/<%= @conversation.id %>',
+			$(".new_message").serializeJSON()
+		)});
+	})
 </script>

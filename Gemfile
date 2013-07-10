@@ -61,3 +61,7 @@ gem 'will_paginate'
 
 # search
 gem 'pg_search'
+
+# real time conversation
+gem 'thin'
+gem 'faye'

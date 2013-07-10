@@ -15,6 +15,7 @@
 //= require jquery.tokeninput
 //= require pluralize
 //= require jquery.bpopup.min
+//= require jquery.serializeJSON.min
 //= require twitter/bootstrap
 //= require_tree .
 //= require_tree ../templates

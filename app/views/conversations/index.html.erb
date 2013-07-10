@@ -27,7 +27,6 @@
 <div class="new_msg_form span5 well">
 	<%= form_for Message.new do |f| %>
 		<%= f.hidden_field :sender_id, :value => current_user.id %>
-
 		<%= collection_select(:message, :receiver_id, User.all, :id, :username) %>
 		<%#= f.text_field :receiver_id, :class => "message_receiver_tokens" %><br />
 
