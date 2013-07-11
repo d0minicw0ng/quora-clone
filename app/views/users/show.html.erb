@@ -1,21 +1,6 @@
 <div class="container-fluid">
 	<div class="row-fluid">
-		<% if current_user.id != @user.id %>
-			<%= form_for @rel,
-				:remote => true,
-				:html => { :class => current_user.followed_users.include?(@user) ? "follow_user hidden" : "follow_user"} do |f| %>
-				<%= f.hidden_field :followed_user_id, :value => @user.id %>
-				<button type="submit" class="btn btn-success">Follow User<i class="icon-ok"></i></button>
-			<% end %>
-
-			<%= form_for @rel,
-				:remote => true,
-				:html => { :class => current_user.followed_users.include?(@user) ? "unfollow_user" : "unfollow_user hidden" ,
-				:method => :delete } do |f| %>
-				<%= f.hidden_field :followed_user_id, :value => @user.id %>
-				<button type="submit" class="btn btn-success">Unfollow User<i class="icon-ok"></i></button>
-			<% end %>
-		<% end %>
+		<%= render :partial => "follow_unfollow", :locals => { rel: @rel, user: @user } %>
 
 		<h3><%= link_to @user.username, user_url(@user) %></h3>
 
