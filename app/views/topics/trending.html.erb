@@ -1,17 +1,4 @@
-<%= form_for @rel,
-	:remote => true,
-	:html => { :class => current_user.followed_topics.include?(@topic) ? "follow_topic hidden" : "follow_topic"} do |f| %>
-	<%= f.hidden_field :topic_id, :value => @topic.id %>
-	<button type="submit" class="btn btn-success">Follow Topic<i class="icon-ok"></i></button>
-<% end %>
-
-<%= form_for @rel,
-	:remote => true,
-	:html => { :class => current_user.followed_topics.include?(@topic) ? "unfollow_topic" : "unfollow_topic hidden",
-	:method => :delete } do |f| %>
-	<%= f.hidden_field :topic_id, :value => @topic.id %>
-	<button type="submit" class="btn btn-success">Unfollow Topic<i class="icon-ok"></i></button>
-<% end %>
+<%= render :partial => "follow_unfollow", :locals => { rel: @rel, topic: @topic } %>
 
 <h1><%= @topic.name %></h1>
 
@@ -21,19 +8,9 @@
 </ul>
 
 <br /><hr width="80%">
-<%= link_to "Add Question", "#", :class => "add_question" %>
-<%= form_for @question,
-	:html => { :class => "add_question_form hidden"} do |f| %>
-	<input type='hidden' value="<%= @topic.id %>" name="topic_id" >
 
-	<%= f.label :title %>
-	<%= f.text_field :title %><br />
+<%= render :partial => "question_form", :locals => { question: @question, topic: @topic } %>
 
-	<%= f.label :body %>
-	<%= f.text_area :body, :rows => 2 %><br />
-
-	<%= f.submit "Create Question", :class => "btn btn-success" %>
-<% end %>
 
 <h3>Trending Questions</h3>
 <% @questions.each do |question| %>
