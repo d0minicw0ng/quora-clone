@@ -46,4 +46,10 @@ Quora::Application.configure do
 		},
     :s3_host_name => "s3-us-west-1.amazonaws.com"
 	}
+
+  require 'pusher'
+
+  Pusher.app_id = '48657'
+  Pusher.key = 'f45518036d2644e42a12'
+  Pusher.secret = 'ddddfd1ba549a1403030'
 end

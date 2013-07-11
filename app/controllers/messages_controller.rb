@@ -10,6 +10,8 @@ class MessagesController < ApplicationController
     @message.save!
     @message.conversation.mark_as_unread
 
+    Pusher['test_channel'].trigger('form_submit', @message.to_json)
+
     respond_to do |format|
       format.json { render :json => @message.as_json(:include => [:sender]) }
       format.html { redirect_to conversation_url(@message.conversation) }

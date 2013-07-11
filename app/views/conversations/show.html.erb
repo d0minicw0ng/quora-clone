@@ -28,34 +28,50 @@
 </script>
 
 <script type="text/javascript">
-	$(function(){
-	  // var broadcast_server = "<%#= broadcast_server %>"
-		Faye.Transport.WebSocket.isUsable = function($, _, c) { c(false) };
-		var client = new Faye.Client('http://dominic-wong-faye-server.herokuapp.com/faye');
-		// var client = new Faye.Client(broadcast_server);
+	// $(function(){
+	// 	Faye.Transport.WebSocket.isUsable = function($, _, c) { c(false) };
+	// 	var client = new Faye.Client('http://localhost:9292/faye');
+	// 	client.connect();
+	//
+	// 	var private_subscription = client.subscribe('/conversations/private/<%= @conversation.id %>', function(data){
+	// 		var name = null;
+	// 		if ("<%= current_user.id %>" === data["message"].sender_id){
+	// 			name = "<%= current_user.username %>"
+	// 		} else {
+	// 			name = "<%= counterpart.username %>"
+	// 		}
+	// 		var template = JST["messages/show"]({
+	// 			message: data["message"],
+	// 			sender_name: name
+	// 		})
+	// 		$(".convo_box").append(template);
+	// 		$(".msg_box").val("");
+	// 	})
+	//
+	// 	$(".new_message").submit(function(){
+	// 		client.publish('/conversations/private/<%= @conversation.id %>',
+	// 		$(".new_message").serializeJSON()
+	// 	)});
+	// })
 
-		// headers["Acess-Control-Allow-Origin"] = "*";
-		// client.setHeader('Access-Control-Allow-Headers', '*');
-		client.connect();
+  // Enable pusher logging - don't include this in production
 
-		var private_subscription = client.subscribe('/conversations/private/<%= @conversation.id %>', function(data){
+	  var pusher = new Pusher("<%= Pusher.key %>");
+	  var channel = pusher.subscribe('test_channel');
+
+	  channel.bind("form_submit", function(data) {
 			var name = null;
-			if ("<%= current_user.id %>" === data["message"].sender_id){
+			console.log(data)
+			if ("<%= current_user.id %>" === data.sender_id){
 				name = "<%= current_user.username %>"
 			} else {
 				name = "<%= counterpart.username %>"
 			}
 			var template = JST["messages/show"]({
-				message: data["message"],
+				message: data,
 				sender_name: name
 			})
 			$(".convo_box").append(template);
 			$(".msg_box").val("");
-		})
-
-		$(".new_message").submit(function(){
-			client.publish('/conversations/private/<%= @conversation.id %>',
-			$(".new_message").serializeJSON()
-		)});
-	})
+		});
 </script>
