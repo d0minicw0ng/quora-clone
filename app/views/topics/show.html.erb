@@ -33,7 +33,7 @@
 	<%= f.label :body %>
 	<%= f.text_area :body, :rows => 2 %><br />
 
-	<%= f.submit "Create Question" %>
+	<%= f.submit "Create Question", :class => "btn btn-success" %>
 <% end %>
 
 <% unless @topic.questions.empty? %>
@@ -45,16 +45,6 @@
 <% end %>
 
 <script>
-	$(".add_question").on("click", function(){
-		$(".add_question_form").toggleClass("hidden")
-	})
-
-	$(".follow_topic").on("ajax:success", function(){
-		$(".follow_topic").toggleClass("hidden");
-		$(".unfollow_topic").toggleClass("hidden");
-	})
-	$(".unfollow_topic").on("ajax:success", function(){
-		$(".follow_topic").toggleClass("hidden");
-		$(".unfollow_topic").toggleClass("hidden");
-	})
+	addTopicQuestion();
+	followUnfollowTopics();
 </script>
