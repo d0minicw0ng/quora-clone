@@ -32,9 +32,8 @@ class TopicsController < ApplicationController
     @questions =
       @topic
         .questions
-          .sort_by {|question| question.created_at }
+          .sort_by { |question| question.created_at }
           .reverse!
-          .select { |topic| topic.followers > 1 }
 
     @question = Question.new
     @rel = FollowTopicRelationship.new
