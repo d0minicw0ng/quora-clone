@@ -30,7 +30,12 @@ class TopicsController < ApplicationController
   def trending
     @topic = Topic.find(params[:id])
     @questions =
-      @topic.questions.sort_by {|question| question.created_at }.reverse!
+      @topic
+        .questions
+          .sort_by {|question| question.created_at }
+          .reverse!
+          .select { |topic| topic.followers > 1 }
+
     @question = Question.new
     @rel = FollowTopicRelationship.new
   end

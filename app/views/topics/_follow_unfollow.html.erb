@@ -1,3 +1,5 @@
+<div class="followers"><%= pluralize(topic.followers.count, "Follower") %></div>
+
 <%= form_for rel,
 	:remote => true,
 	:html => { :class => current_user.followed_topics.include?(topic) ? "follow_topic hidden" : "follow_topic"} do |f| %>

@@ -18,10 +18,16 @@ var toggleFollowButton = function(){
 	$(".follow_question").on("ajax:success", function(){
 		$(".follow_question").toggleClass("hidden");
 		$(".unfollow_question").toggleClass("hidden");
+
+		var count = parseInt($(".followers").html().replace(/\s.+/, "")) + 1;
+		$(".followers").html(count + " " + owl.pluralize("Follower", count));
 	})
 	$(".unfollow_question").on("ajax:success", function(){
 		$(".follow_question").toggleClass("hidden");
 		$(".unfollow_question").toggleClass("hidden");
+
+		var count = parseInt($(".followers").html().replace(/\s.+/, "")) - 1;
+		$(".followers").html(count + " " + owl.pluralize("Follower", count));
 	})
 };
 
