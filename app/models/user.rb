@@ -83,7 +83,9 @@ class User < ActiveRecord::Base
   end
 
   def unread_notifications
-    self.notifications.select { |n| !n.is_read? }
+    self.notifications.select do |n|
+      !n.is_read? && self.id != n.activity.owner_id
+    end
   end
 
   def unread_conversations
