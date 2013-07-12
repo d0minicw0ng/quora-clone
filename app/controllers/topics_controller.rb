@@ -6,6 +6,7 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(params[:topic])
     @topic.save!
+    FollowTopicRelationship.create!({topic_id: @topic.id, follower_id: current_user.id })
     @topic.create_activity :create,
       owner: current_user,
       recipient: @topic
