@@ -1,6 +1,6 @@
 class FeedsController < ApplicationController
   def top_questions
-    @questions = Question.all
+    @questions = Question.includes(:question_topic_relationships).all
       .sort_by{ |question| question.followers }.reverse![0..9]
     @topics = Topic.trending_topics[0..5]
   end

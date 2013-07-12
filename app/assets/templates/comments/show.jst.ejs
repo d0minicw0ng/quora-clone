@@ -31,18 +31,5 @@
 			</button>
 		</form>
 	</div>
-
-	<ul class="child_comments"></ul>
-
-	<a href="#" class="new_reply" id="<%= comment.id %>">Reply</a>
-	<hr width="80%">
-
-	<form action="/comments" method="POST" class="child_comment_area_<%= comment.id %> hidden" data-remote="true">
-		<input type="text" name=comment[body]>
-		<input type="hidden" value=<%= comment.question_id %> name="comment[question_id]">
-		<input type="hidden" value=<%= comment.id %> name="comment[parent_comment_id]">
-
-		<div id="leave_reply"><input type="submit" value="Comment"></div>
-	</form>
 </li>
 

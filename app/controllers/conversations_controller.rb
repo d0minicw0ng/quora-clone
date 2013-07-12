@@ -5,7 +5,7 @@ class ConversationsController < ApplicationController
 
   def show
     @conversation = Conversation
-      .includes(:messages).find(params[:id])
+      .includes(messages: [:sender, :receiver]).find(params[:id])
     @conversation.messages.sort_by { |message| message.created_at }.reverse!
     @message = Message.new
     @conversation.mark_as_read if @conversation.last_message.sender != current_user

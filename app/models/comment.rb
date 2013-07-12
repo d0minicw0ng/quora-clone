@@ -1,17 +1,8 @@
 class Comment < ActiveRecord::Base
   include PublicActivity::Common
 
-  attr_accessible :body, :question_id, :answerer_id, :parent_comment_id
+  attr_accessible :body, :question_id, :answerer_id
 	validates_presence_of :body, :question_id, :answerer_id
-
-	has_many :child_comments,
-					 :class_name => "Comment",
-					 :foreign_key => :parent_comment_id,
-					 :dependent => :destroy
-
-	belongs_to :parent_comment,
- 						 :class_name => "Comment",
-						 :foreign_key => :parent_comment_id
 
 	belongs_to :question
 
