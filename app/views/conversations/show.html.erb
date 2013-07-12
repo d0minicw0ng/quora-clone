@@ -29,7 +29,6 @@
 
 	channel.bind("form_submit", function(data) {
 		var name = null;
-		console.log(data)
 		if (parseInt("<%= current_user.id %>") === data.sender_id){
 			name = "<%= current_user.username %>"
 		} else {
