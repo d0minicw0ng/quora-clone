@@ -3,14 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .inbox {
-	float:left;
+	display:inline-block;
 	padding-left:20px;
 }
 
-.new_message {
-	float:left;
-	padding-left: 50px;
-	padding-top:15px;
+.new_message_btn {
+	margin-left:40px;
 }
 
 .new_msg_form {
@@ -21,4 +19,12 @@
 	width:800px;
 	height:300px;
 	overflow:scroll;
+}
+
+.receiver {
+	width:100%;
+}
+
+.msg_content {
+	width:100%;
 }

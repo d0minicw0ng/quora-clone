@@ -1,6 +1,8 @@
 class MessagesController < ApplicationController
   def create
-    @message = Message.new(params[:message])
+    receiver = User.find_by_username(params[:message]["receiver_name"])
+    params[:message].delete("receiver_name")
+    @message = Message.new(params[:message].merge(receiver_id: receiver.id))
 
     unless params[:message][:conversation_id]
       @conversation = Conversation.create!

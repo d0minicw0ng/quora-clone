@@ -13,9 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.autocomplete
+//= require jquery.ui.dialog
 //= require jquery.tokeninput
 //= require pluralize
-//= require jquery.bpopup.min
 //= require jquery.serializeJSON.min
 //= require twitter/bootstrap
 //= require_tree .

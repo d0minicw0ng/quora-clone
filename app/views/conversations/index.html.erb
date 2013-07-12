@@ -1,5 +1,5 @@
 <h3 class="inbox">Inbox</h3>
-<div class="new_message"><button class="popup_msg_form btn btn-success">Compose New Message</button></div>
+<button class="new_message_btn popup_msg_form btn btn-success">Compose New Message</button>
 <br /><br /><br /><br /><br />
 
 
@@ -31,21 +31,20 @@
 </table>
 
 
-<div class="new_msg_form span5 well">
+<div class="new_msg_form well">
 	<%= form_for Message.new do |f| %>
 		<%= f.hidden_field :sender_id, :value => current_user.id %>
-		<%= collection_select(:message, :receiver_id, User.all, :id, :username) %>
-		<%#= f.text_field :receiver_id, :class => "message_receiver_tokens" %><br />
+		<input type="text" class="receiver" name="message[receiver_name]" placeholder="Type the person's username"><br />
 
 		<%= f.text_area :content,
-			:class => "span4",
 			rows: 4,
-			:placeholder => "Type Your Message Here" %>
+			:placeholder => "Type Your Message Here",
+			:class => "msg_content" %><br />
 
 		<%= f.submit "Send Message!", :class => "btn btn-success" %>
 	<% end %>
 
 <script>
 	msgFormPopup();
-	msgAutoComplete();
+	msgFormAutocomplete();
 </script>

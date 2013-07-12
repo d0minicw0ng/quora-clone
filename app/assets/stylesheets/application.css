@@ -12,6 +12,7 @@
  *= require_tree .
  *= require token-input-facebook
  *= require jquery.ui.autocomplete
+ *= require jquery.ui.dialog
  */
 
 #body {
@@ -40,4 +41,3 @@
 	padding-right: 20px;
 	padding-bottom: 20px;
 }
-
