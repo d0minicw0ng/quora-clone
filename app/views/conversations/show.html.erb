@@ -39,6 +39,8 @@
 			sender_name: name
 		})
 		$(".convo_box").append(template);
+		$(".convo_box").scrollTop($(".convo_box")[0].scrollHeight);
+
 		$(".msg_box").val("");
 	});
 </script>
