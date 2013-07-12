@@ -1,7 +1,26 @@
+<style type="text/css">
+  body{
+
+    background: url(<%= asset_path 'desert.jpg' %>) no-repeat center center fixed;
+    -webkit-background-size: 100% auto;
+    -moz-background-size: 100% auto;
+    -ms-background-size: 100% auto;
+    -o-background-size: 100% auto;
+    background-size: 100% auto;
+  }
+  .span4 .offset4 .well{
+    background-color:white;
+    opacity: .8;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 5px;
+  }
+</style>
+
 <div class="container">
 	<div class="row">
 		<div class="span4 offset4 well">
-			<legend>Quora Clone - Please Sign In!</legend>
+			<h3>Quora Clone - Please Sign In!</h3>
 			<strong>Account: minion@gmail.com; PW: minionminion</strong><br /><br />
 			<strong>Account: monster@gmail.com; PW:monstermonster</strong><br /><br />
 			<div>2 Accounts for CHAT! More fun!</div><br /><br />
@@ -22,8 +41,10 @@
 
 				<%= f.submit "Sign in", :class => "btn btn-danger btn-block" %>
 			<% end %>
+
+			<%= render "devise/shared/links" %>
+
 		</div>
 	</div>
 </div>
 
-<%= render "devise/shared/links" %>

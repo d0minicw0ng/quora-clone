@@ -1,5 +1,24 @@
+<style type="text/css">
+  body{
+
+    background: url(<%= asset_path 'sky.jpg' %>) no-repeat center center fixed;
+    -webkit-background-size: 100% auto;
+    -moz-background-size: 100% auto;
+    -ms-background-size: 100% auto;
+    -o-background-size: 100% auto;
+    background-size: 100% auto;
+  }
+  .span3 .well{
+    background-color:white;
+    opacity: .8;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 5px;
+  }
+</style>
+
 <div class="span3 well">
-	<legend>New to Quora Clone? Sign up!</legend>
+	<h3>New to Quora Clone? Sign up!</h3>
 	<%= form_for(resource,
 		:as => resource_name,
 		:url => registration_path(resource_name),
@@ -21,6 +40,6 @@
 			<div><%= f.label :profile_picture %><br />
 			<%= f.file_field :profile_picture, :class => "span3" %></div><br />
 
-			<div><%= f.submit "Sign Up", :class => "btn btn-warning" %>
+			<div><%= f.submit "Sign Up", :class => "btn btn-danger" %>
 		<% end %>
 </div>
