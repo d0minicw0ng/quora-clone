@@ -93,3 +93,42 @@
 <% if alert %>
 	<p class="alert"><%= alert %></p>
 <% end %>
+
+
+<script type="application/json" id="users">
+	<%= User.all.to_json.html_safe %>
+</script>
+
+<script type="application/json" id="questions">
+	<%= Question.all.to_json.html_safe %>
+</script>
+
+<script type="application/json" id="topics">
+	<%= Topic.all.to_json.html_safe %>
+</script>
+
+<script>
+$(function() {
+  var data = [];
+
+	var users = JSON.parse($("#users").html());
+	var questions = JSON.parse($("#questions").html());
+	var topics = JSON.parse($("#topics").html());
+
+	for (var i = 0; i < users.length; i++){
+		data.push(users[i]["username"])
+	}
+
+	for (var i = 0; i < questions.length; i++){
+		data.push(questions[i]["title"])
+	}
+
+	for (var i = 0; i < topics.length; i++){
+		data.push(topics[i]["name"])
+	}
+
+  $( ".search-query" ).autocomplete({
+    source: data
+  });
+});
+</script>
